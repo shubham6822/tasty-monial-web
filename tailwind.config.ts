@@ -12,6 +12,11 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        caveat: ["Caveat", "serif"],
+        manrope: "var(--font-manrope)",
+        bricolage: "var(--font-bricolage-grotesque)",
+      },
     },
   },
   plugins: [],
