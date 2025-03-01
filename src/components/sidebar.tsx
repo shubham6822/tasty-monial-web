@@ -1,168 +1,220 @@
 "use client";
 
+import type React from "react";
+
 import {
+  FileText,
+  Upload,
+  MessageSquare,
+  Search,
+  Tags,
+  Palette,
+  Heart,
+  Sparkles,
+  Info,
+  Share2,
+  MessageCircle,
+  Users,
+  Home,
   BarChart2,
-  Receipt,
-  Building2,
-  CreditCard,
   Folder,
-  Wallet,
-  Users2,
-  Shield,
-  MessagesSquare,
-  Video,
   Settings,
   HelpCircle,
-  Menu,
-  MessageSquareQuote,
-  MessageSquare,
 } from "lucide-react";
-
-import { Home } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
 import Image from "next/image";
+import { cn } from "../lib/utils";
+import { Badge } from "../components/ui/badge";
+
+interface NavItem {
+  href: string;
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  badge?: string;
+  isNew?: boolean;
+}
+
+interface NavSection {
+  title: string;
+  items: NavItem[];
+}
+
+const navigation: NavSection[] = [
+  {
+    title: "OVERVIEW",
+    items: [
+      {
+        href: "/dashboard",
+        icon: Home,
+        label: "Dashboard",
+      },
+      {
+        href: "#",
+        icon: BarChart2,
+        label: "Analytics",
+      },
+      {
+        href: "#",
+        icon: MessageSquare,
+        label: "Testimonial",
+      },
+      {
+        href: "#",
+        icon: Folder,
+        label: "Project",
+        isNew: true,
+      },
+    ],
+  },
+  // {
+  //   title: "COLLECT",
+  //   items: [
+  //     {
+  //       href: "/forms",
+  //       icon: FileText,
+  //       label: "Forms",
+  //     },
+  //     {
+  //       href: "/import",
+  //       icon: Upload,
+  //       label: "Import Testimonials",
+  //     },
+  //   ],
+  // },
+  // {
+  //   title: "MANAGE",
+  //   items: [
+  //     {
+  //       href: "/testimonials",
+  //       icon: MessageSquare,
+  //       label: "Testimonials",
+  //     },
+  //     {
+  //       href: "/search",
+  //       icon: Search,
+  //       label: "Search",
+  //     },
+  //     {
+  //       href: "/tags",
+  //       icon: Tags,
+  //       label: "Tags",
+  //     },
+  //   ],
+  // },
+  {
+    title: "HELP & RESOURCES",
+    items: [
+      {
+        href: "/whats-new",
+        icon: Info,
+        label: "What's new",
+      },
+      {
+        href: "/affiliate",
+        icon: Share2,
+        label: "Affiliate Program",
+      },
+      {
+        href: "/feedback",
+        icon: MessageCircle,
+        label: "Feedback",
+      },
+      {
+        href: "/community",
+        icon: Users,
+        label: "Community",
+      },
+    ],
+  },
+];
+
+function NavItem({
+  href,
+  icon: Icon,
+  children,
+}: {
+  href: string;
+  icon: any;
+  children: React.ReactNode;
+}) {
+  return (
+    <Link
+      href={href}
+      className="flex items-center px-3 py-2 text-sm rounded-md transition-colors text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-[#1F1F23]"
+    >
+      <Icon className="h-4 w-4 mr-3 flex-shrink-0" />
+      {children}
+    </Link>
+  );
+}
 
 export default function Sidebar() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  function handleNavigation() {
-    setIsMobileMenuOpen(false);
-  }
-
-  function NavItem({
-    href,
-    icon: Icon,
-    children,
-  }: {
-    href: string;
-    icon: any;
-    children: React.ReactNode;
-  }) {
-    return (
-      <Link
-        href={href}
-        onClick={handleNavigation}
-        className="flex items-center px-3 py-2 text-sm rounded-md transition-colors text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-[#1F1F23]"
-      >
-        <Icon className="h-4 w-4 mr-3 flex-shrink-0" />
-        {children}
-      </Link>
-    );
-  }
-
   return (
-    <>
-      <button
-        type="button"
-        className="lg:hidden fixed top-4 left-4 z-[70] p-2 rounded-lg bg-white dark:bg-[#0F0F12] shadow-md"
-        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-      >
-        <Menu className="h-5 w-5 text-gray-600 dark:text-gray-300" />
-      </button>
-      <nav
-        className={`
-                fixed inset-y-0 left-0 z-[70] w-64 bg-white dark:bg-[#0F0F12] transform transition-transform duration-200 ease-in-out
-                lg:translate-x-0 lg:static lg:w-64 border-r border-gray-200 dark:border-[#1F1F23]
-                ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"}
-            `}
-      >
-        <div className="h-full flex flex-col">
-          <Link
-            href="/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="h-16 px-6 flex items-center border-b border-gray-200 dark:border-[#1F1F23]"
-          >
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2 font-bold">
-                <MessageSquareQuote className="h-6 w-6 text-primary" />
-                <span>TastyMonial</span>
-              </div>
-            </div>
-          </Link>
-
-          <div className="flex-1 overflow-y-auto py-4 px-4">
-            <div className="space-y-6">
-              <div>
-                <div className="px-3 mb-2 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                  Overview
-                </div>
-                <div className="space-y-1">
-                  <NavItem href="/dashboard" icon={Home}>
-                    Dashboard
-                  </NavItem>
-                  <NavItem href="#" icon={BarChart2}>
-                    Analytics
-                  </NavItem>
-                  <NavItem href="#" icon={MessageSquare}>
-                    Testimonial
-                  </NavItem>
-
-                  <NavItem href="#" icon={Folder}>
-                    Projects
-                  </NavItem>
-                </div>
-              </div>
-
-              {/* <div>
-                <div className="px-3 mb-2 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                  Finance
-                </div>
-                <div className="space-y-1">
-                  <NavItem href="#" icon={Wallet}>
-                    Transactions
-                  </NavItem>
-                  <NavItem href="#" icon={Receipt}>
-                    Invoices
-                  </NavItem>
-                  <NavItem href="#" icon={CreditCard}>
-                    Payments
-                  </NavItem>
-                </div>
-              </div>
-
-              <div>
-                <div className="px-3 mb-2 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                  Team
-                </div>
-                <div className="space-y-1">
-                  <NavItem href="#" icon={Users2}>
-                    Members
-                  </NavItem>
-                  <NavItem href="#" icon={Shield}>
-                    Permissions
-                  </NavItem>
-                  <NavItem href="#" icon={MessagesSquare}>
-                    Chat
-                  </NavItem>
-                  <NavItem href="#" icon={Video}>
-                    Meetings
-                  </NavItem>
-                </div>
-              </div> */}
-            </div>
-          </div>
-
-          <div className="px-4 py-4 border-t border-gray-200 dark:border-[#1F1F23]">
-            <div className="space-y-1">
-              <NavItem href="#" icon={Settings}>
-                Settings
-              </NavItem>
-              <NavItem href="#" icon={HelpCircle}>
-                Help
-              </NavItem>
+    <div className="w-60 p-2 h-screen flex flex-col bg-gray-50 dark:bg-[#1F1F23]  dark:border-gray-800">
+      <div className="p-4 border-gray-200 dark:border-gray-800">
+        <div className="flex items-center gap-3">
+          <Image
+            src="/placeholder.svg?height=32&width=32"
+            alt="Avatar"
+            width={32}
+            height={32}
+            className="rounded-full"
+          />
+          <div className="flex flex-col">
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                Shubham
+              </span>
+              <Badge variant="secondary" className="h-5 text-xs font-normal">
+                Admin
+              </Badge>
             </div>
           </div>
         </div>
-      </nav>
+      </div>
 
-      {isMobileMenuOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-[65] lg:hidden"
-          onClick={() => setIsMobileMenuOpen(false)}
-        />
-      )}
-    </>
+      <div className="flex-1 overflow-auto py-4">
+        {navigation.map((section) => (
+          <div key={section.title} className="mb-6">
+            <div className="px-4 mb-2">
+              <h3 className="text-xs font-medium text-gray-500 dark:text-gray-400">
+                {section.title}
+              </h3>
+            </div>
+            <nav className="space-y-1">
+              {section.items.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={cn(
+                    "flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300",
+                    "hover:bg-gray-100 dark:hover:bg-gray-800/50",
+                    "group relative"
+                  )}
+                >
+                  <item.icon className="h-4 w-4" />
+                  <span>{item.label}</span>
+                  {item.isNew && (
+                    <Badge variant="secondary" className="ml-auto text-xs">
+                      New
+                    </Badge>
+                  )}
+                </Link>
+              ))}
+            </nav>
+          </div>
+        ))}
+      </div>
+      <div className="px-4 py-4 border-t border-gray-200 dark:border-[#1F1F23]">
+        <div className="space-y-1">
+          <NavItem href="/s" icon={Settings}>
+            Settings
+          </NavItem>
+          <NavItem href="/h" icon={HelpCircle}>
+            Help
+          </NavItem>
+        </div>
+      </div>
+    </div>
   );
 }

@@ -59,7 +59,7 @@ export default function TestimonialList({
       {testimonials.map((testimonial) => (
         <div
           key={testimonial.id}
-          className="p-4 border border-gray-200 dark:border-gray-800 rounded-lg hover:border-gray-300 dark:hover:border-gray-700 transition-all duration-200"
+          className="p-4 border-b border-gray-100 dark:border-gray-800  dark:hover:border-gray-700 transition-all duration-200"
         >
           <div className="flex justify-between items-start mb-2">
             <div>
