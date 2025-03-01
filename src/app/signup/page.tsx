@@ -11,7 +11,8 @@ import { useRouter } from "next/navigation";
 import { ThemeToggle } from "../../components/theme-toggle";
 import { MessageSquareQuote } from "lucide-react";
 
-export default function LoginPage() {
+export default function SignupPage() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -21,7 +22,7 @@ export default function LoginPage() {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate login
+    // Simulate signup
     setTimeout(() => {
       setIsLoading(false);
       router.push("/dashboard");
@@ -36,19 +37,31 @@ export default function LoginPage() {
 
       <div className="w-full max-w-md">
         <div className="bg-white dark:bg-[#1F1F23] p-8 rounded-xl shadow-sm border border-gray-200 dark:border-gray-800">
+          <div className="flex justify-center mb-8">
+            <MessageSquareQuote className="h-6 w-6 text-primary" />
+          </div>
           <div className="text-center mb-6">
-            <div className="flex justify-center mb-8">
-              <MessageSquareQuote className="h-6 w-6 text-primary" />
-            </div>
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-              Welcome back
+              Create an account
             </h1>
             <p className="text-gray-600 dark:text-gray-400 mt-1">
-              Sign in to your account
+              Start collecting testimonials today
             </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="name">Full Name</Label>
+              <Input
+                id="name"
+                type="text"
+                placeholder="John Doe"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </div>
+
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -62,15 +75,7 @@ export default function LoginPage() {
             </div>
 
             <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <Label htmlFor="password">Password</Label>
-                <Link
-                  href="/forgot-password"
-                  className="text-xs text-indigo-600 dark:text-indigo-400 hover:underline"
-                >
-                  Forgot password?
-                </Link>
-              </div>
+              <Label htmlFor="password">Password</Label>
               <Input
                 id="password"
                 type="password"
@@ -79,10 +84,13 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+                Must be at least 8 characters
+              </p>
             </div>
 
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Signing in..." : "Sign in"}
+              {isLoading ? "Creating account..." : "Create account"}
             </Button>
 
             <div className="relative my-6">
@@ -116,18 +124,18 @@ export default function LoginPage() {
                 />
                 <path d="M1 1h22v22H1z" fill="none" />
               </svg>
-              Sign in with Google
+              Sign up with Google
             </Button>
           </form>
 
           <div className="mt-6 text-center text-sm">
             <p className="text-gray-600 dark:text-gray-400">
-              Don't have an account?{" "}
+              Already have an account?{" "}
               <Link
-                href="/signup"
+                href="/login"
                 className="text-indigo-600 dark:text-indigo-400 hover:underline font-medium"
               >
-                Sign up
+                Sign in
               </Link>
             </p>
           </div>

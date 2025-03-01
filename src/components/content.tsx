@@ -1,0 +1,57 @@
+import { MessageSquare, Share2, Users } from "lucide-react";
+import TestimonialList from "./testimonial-list";
+import ShareForm from "../components/share-form";
+import TestimonialStats from "../components/testimonial-stats";
+
+export default function Content() {
+  return (
+    <div className="space-y-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-6 flex flex-col border border-gray-200 dark:border-[#1F1F23]">
+          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4 text-left flex items-center gap-2 ">
+            <MessageSquare className="w-3.5 h-3.5 text-zinc-900 dark:text-zinc-50" />
+            Testimonials
+          </h2>
+          <div className="flex-1">
+            <TestimonialStats type="total" />
+          </div>
+        </div>
+        <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-6 flex flex-col border border-gray-200 dark:border-[#1F1F23]">
+          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4 text-left flex items-center gap-2">
+            <Share2 className="w-3.5 h-3.5 text-zinc-900 dark:text-zinc-50" />
+            Form Submissions
+          </h2>
+          <div className="flex-1">
+            <TestimonialStats type="submissions" />
+          </div>
+        </div>
+        <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-6 flex flex-col border border-gray-200 dark:border-[#1F1F23]">
+          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4 text-left flex items-center gap-2">
+            <Users className="w-3.5 h-3.5 text-zinc-900 dark:text-zinc-50" />
+            Team Members
+          </h2>
+          <div className="flex-1">
+            <TestimonialStats type="team" />
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 bg-white dark:bg-[#0F0F12] rounded-xl p-6 flex flex-col border border-gray-200 dark:border-[#1F1F23]">
+          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4 text-left flex items-center gap-2">
+            <MessageSquare className="w-3.5 h-3.5 text-zinc-900 dark:text-zinc-50" />
+            Recent Testimonials
+          </h2>
+          <TestimonialList />
+        </div>
+        <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-6 flex flex-col border border-gray-200 dark:border-[#1F1F23]">
+          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4 text-left flex items-center gap-2">
+            <Share2 className="w-3.5 h-3.5 text-zinc-900 dark:text-zinc-50" />
+            Share Your Form
+          </h2>
+          <ShareForm />
+        </div>
+      </div>
+    </div>
+  );
+}

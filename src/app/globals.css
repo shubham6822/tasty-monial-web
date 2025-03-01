@@ -73,3 +73,33 @@
   }
 }
 
+/* Smooth scrolling behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px; /* Width for vertical scrollbar */
+  height: 8px; /* Height for horizontal scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #4d4d4d; /* Dark background for the track */
+  border-radius: 50px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(120deg, #c9c9c9, #c9c9c9); /* Gradient effect */
+  border-radius: 50px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(120deg, #c9c9c9, #c9c9c9); /* Darker on hover */
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #c9c9c9;
+}
