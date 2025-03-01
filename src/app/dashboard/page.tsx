@@ -1,25 +1,31 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Input } from "@/components/ui/input"
-import { useToast } from "@/components/ui/use-toast"
-import { Copy, ExternalLink, Plus } from "lucide-react"
-import { TestimonialList } from "@/components/testimonial-list"
+import { useState } from "react";
+import { Copy, ExternalLink, Plus } from "lucide-react";
+import { useToast } from "../../hooks/use-toast";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@radix-ui/react-tabs";
+import { TestimonialList } from "../../components/testimonial-list";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardDescription,
+} from "../../components/ui/card";
+import { Button } from "../../components/ui/button";
+import { Input } from "../../components/ui/input";
 
 export default function DashboardPage() {
-  const { toast } = useToast()
-  const [formLink] = useState("https://tasty-monial.vercel.app/submit/user123")
+  const { toast } = useToast();
+  const [formLink] = useState("https://tasty-monial.vercel.app/submit/user123");
 
   const handleCopyLink = () => {
-    navigator.clipboard.writeText(formLink)
+    navigator.clipboard.writeText(formLink);
     toast({
       title: "Link copied!",
       description: "The form link has been copied to your clipboard.",
-    })
-  }
+    });
+  };
 
   return (
     <div className="flex-1 space-y-4 p-4 pt-6 md:p-8">
@@ -42,7 +48,9 @@ export default function DashboardPage() {
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total Testimonials</CardTitle>
+                <CardTitle className="text-sm font-medium">
+                  Total Testimonials
+                </CardTitle>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -58,12 +66,16 @@ export default function DashboardPage() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">12</div>
-                <p className="text-xs text-muted-foreground">+2 since last month</p>
+                <p className="text-xs text-muted-foreground">
+                  +2 since last month
+                </p>
               </CardContent>
             </Card>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Pending Review</CardTitle>
+                <CardTitle className="text-sm font-medium">
+                  Pending Review
+                </CardTitle>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -81,12 +93,16 @@ export default function DashboardPage() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">3</div>
-                <p className="text-xs text-muted-foreground">+1 since yesterday</p>
+                <p className="text-xs text-muted-foreground">
+                  +1 since yesterday
+                </p>
               </CardContent>
             </Card>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Form Submissions</CardTitle>
+                <CardTitle className="text-sm font-medium">
+                  Form Submissions
+                </CardTitle>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -103,7 +119,9 @@ export default function DashboardPage() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">24</div>
-                <p className="text-xs text-muted-foreground">+8 since last month</p>
+                <p className="text-xs text-muted-foreground">
+                  +8 since last month
+                </p>
               </CardContent>
             </Card>
           </div>
@@ -111,7 +129,9 @@ export default function DashboardPage() {
           <Card>
             <CardHeader>
               <CardTitle>Your Form Link</CardTitle>
-              <CardDescription>Share this link with your clients to collect testimonials</CardDescription>
+              <CardDescription>
+                Share this link with your clients to collect testimonials
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="flex items-center space-x-2">
@@ -135,7 +155,9 @@ export default function DashboardPage() {
           <Card>
             <CardHeader>
               <CardTitle>Analytics</CardTitle>
-              <CardDescription>View statistics about your testimonial submissions</CardDescription>
+              <CardDescription>
+                View statistics about your testimonial submissions
+              </CardDescription>
             </CardHeader>
             <CardContent className="h-[300px] flex items-center justify-center">
               <p className="text-muted-foreground">Analytics coming soon</p>
@@ -144,6 +166,5 @@ export default function DashboardPage() {
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }
-

@@ -1,57 +1,74 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { MessageSquareQuote } from "lucide-react"
-import { ThemeToggle } from "@/components/theme-toggle"
-import { useToast } from "@/components/ui/use-toast"
+import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { MessageSquareQuote } from "lucide-react";
+import { ThemeToggle } from "../../components/theme-toggle";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "../../components/ui/card";
+import { useToast } from "../../hooks/use-toast";
+import { Label } from "../../components/ui/label";
+import { Input } from "../../components/ui/input";
+import { Button } from "../../components/ui/button";
 
 export default function LoginPage() {
-  const router = useRouter()
-  const { toast } = useToast()
-  const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter();
+  const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setIsLoading(true)
+    e.preventDefault();
+    setIsLoading(true);
 
     // Simulate API call
     setTimeout(() => {
-      setIsLoading(false)
+      setIsLoading(false);
       toast({
         title: "Login successful!",
         description: "Welcome back to Tasty-Monial.",
-      })
-      router.push("/dashboard")
-    }, 1500)
-  }
+      });
+      router.push("/dashboard");
+    }, 1500);
+  };
 
   return (
     <div className="container flex h-screen w-screen flex-col items-center justify-center">
       <div className="absolute right-4 top-4 md:right-8 md:top-8">
         <ThemeToggle />
       </div>
-      <Link href="/" className="absolute left-4 top-4 md:left-8 md:top-8 flex items-center gap-2 font-bold">
+      <Link
+        href="/"
+        className="absolute left-4 top-4 md:left-8 md:top-8 flex items-center gap-2 font-bold"
+      >
         <MessageSquareQuote className="h-6 w-6 text-primary" />
         <span>Tasty-Monial</span>
       </Link>
       <Card className="w-full max-w-md animate-in">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl">Sign in</CardTitle>
-          <CardDescription>Enter your email and password to sign in to your account</CardDescription>
+          <CardDescription>
+            Enter your email and password to sign in to your account
+          </CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>
           <CardContent className="grid gap-4">
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" placeholder="m@example.com" required />
+              <Input
+                id="email"
+                type="email"
+                placeholder="m@example.com"
+                required
+              />
             </div>
             <div className="grid gap-2">
               <div className="flex items-center justify-between">
@@ -70,10 +87,16 @@ export default function LoginPage() {
                 <span className="w-full border-t" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
+                <span className="bg-background px-2 text-muted-foreground">
+                  Or continue with
+                </span>
               </div>
             </div>
-            <Button variant="outline" type="button" className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              type="button"
+              className="flex items-center gap-2"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -102,7 +125,10 @@ export default function LoginPage() {
               </Button>
               <p className="text-center text-sm text-muted-foreground">
                 Don&apos;t have an account?{" "}
-                <Link href="/sign-up" className="underline underline-offset-4 hover:text-primary">
+                <Link
+                  href="/sign-up"
+                  className="underline underline-offset-4 hover:text-primary"
+                >
                   Sign up
                 </Link>
               </p>
@@ -111,6 +137,5 @@ export default function LoginPage() {
         </form>
       </Card>
     </div>
-  )
+  );
 }
-

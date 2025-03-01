@@ -1,12 +1,24 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { useToast } from "@/components/ui/use-toast"
-import { MoreHorizontal, Star } from "lucide-react"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  CardFooter,
+} from "../components/ui/card";
+import { Button } from "../components/ui/button";
+import { Badge } from "../components/ui/badge";
+import { useToast } from "../components/ui/use-toast";
+import { MoreHorizontal, Star } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../components/ui/dropdown-menu";
 import {
   Dialog,
   DialogContent,
@@ -14,7 +26,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
+} from "../components/ui/dialog";
 import {
   Pagination,
   PaginationContent,
@@ -23,8 +35,14 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+} from "../components/ui/pagination";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../components/ui/select";
 
 // Mock data for testimonials
 const initialTestimonials = [
@@ -136,67 +154,87 @@ const initialTestimonials = [
     date: "2023-03-15T09:50:00Z",
     rating: 5,
   },
-]
+];
 
 export function TestimonialList() {
-  const { toast } = useToast()
-  const [testimonials, setTestimonials] = useState(initialTestimonials)
-  const [selectedTestimonial, setSelectedTestimonial] = useState<(typeof initialTestimonials)[0] | null>(null)
-  const [viewDialogOpen, setViewDialogOpen] = useState(false)
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
+  const { toast } = useToast();
+  const [testimonials, setTestimonials] = useState(initialTestimonials);
+  const [selectedTestimonial, setSelectedTestimonial] = useState<
+    (typeof initialTestimonials)[0] | null
+  >(null);
+  const [viewDialogOpen, setViewDialogOpen] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
   // Pagination state
-  const [currentPage, setCurrentPage] = useState(1)
-  const [itemsPerPage, setItemsPerPage] = useState(5)
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
 
   // Calculate pagination
-  const indexOfLastItem = currentPage * itemsPerPage
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage
-  const currentTestimonials = testimonials.slice(indexOfFirstItem, indexOfLastItem)
-  const totalPages = Math.ceil(testimonials.length / itemsPerPage)
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentTestimonials = testimonials.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+  const totalPages = Math.ceil(testimonials.length / itemsPerPage);
 
   const handleDelete = (id: string) => {
-    setTestimonials(testimonials.filter((t) => t.id !== id))
-    setDeleteDialogOpen(false)
+    setTestimonials(testimonials.filter((t) => t.id !== id));
+    setDeleteDialogOpen(false);
     toast({
       title: "Testimonial deleted",
       description: "The testimonial has been permanently removed.",
-    })
+    });
 
     // Adjust current page if we deleted the last item on the page
     if (currentTestimonials.length === 1 && currentPage > 1) {
-      setCurrentPage(currentPage - 1)
+      setCurrentPage(currentPage - 1);
     }
-  }
+  };
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("en-US", {
       year: "numeric",
       month: "short",
       day: "numeric",
-    })
-  }
+    });
+  };
 
   // Generate page numbers for pagination
   const getPageNumbers = () => {
-    const pageNumbers = []
+    const pageNumbers = [];
 
     if (totalPages <= 5) {
       for (let i = 1; i <= totalPages; i++) {
-        pageNumbers.push(i)
+        pageNumbers.push(i);
       }
     } else {
       if (currentPage <= 3) {
-        pageNumbers.push(1, 2, 3, 4, "ellipsis", totalPages)
+        pageNumbers.push(1, 2, 3, 4, "ellipsis", totalPages);
       } else if (currentPage >= totalPages - 2) {
-        pageNumbers.push(1, "ellipsis", totalPages - 3, totalPages - 2, totalPages - 1, totalPages)
+        pageNumbers.push(
+          1,
+          "ellipsis",
+          totalPages - 3,
+          totalPages - 2,
+          totalPages - 1,
+          totalPages
+        );
       } else {
-        pageNumbers.push(1, "ellipsis", currentPage - 1, currentPage, currentPage + 1, "ellipsis", totalPages)
+        pageNumbers.push(
+          1,
+          "ellipsis",
+          currentPage - 1,
+          currentPage,
+          currentPage + 1,
+          "ellipsis",
+          totalPages
+        );
       }
     }
 
-    return pageNumbers
-  }
+    return pageNumbers;
+  };
 
   return (
     <>
@@ -205,14 +243,16 @@ export function TestimonialList() {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div>
               <CardTitle>Recent Testimonials</CardTitle>
-              <CardDescription>Manage testimonials submitted by your clients</CardDescription>
+              <CardDescription>
+                Manage testimonials submitted by your clients
+              </CardDescription>
             </div>
             <div className="mt-4 flex items-center space-x-2 sm:mt-0">
               <Select
                 value={itemsPerPage.toString()}
                 onValueChange={(value) => {
-                  setItemsPerPage(Number.parseInt(value))
-                  setCurrentPage(1) // Reset to first page when changing items per page
+                  setItemsPerPage(Number.parseInt(value));
+                  setCurrentPage(1); // Reset to first page when changing items per page
                 }}
               >
                 <SelectTrigger className="w-[120px]">
@@ -239,12 +279,19 @@ export function TestimonialList() {
                     <div className="flex items-center justify-between">
                       <h3 className="font-semibold">{testimonial.name}</h3>
                       <div className="flex items-center space-x-1">
-                        {Array.from({ length: testimonial.rating }).map((_, i) => (
-                          <Star key={i} className="h-4 w-4 fill-primary text-primary" />
-                        ))}
+                        {Array.from({ length: testimonial.rating }).map(
+                          (_, i) => (
+                            <Star
+                              key={i}
+                              className="h-4 w-4 fill-primary text-primary"
+                            />
+                          )
+                        )}
                       </div>
                     </div>
-                    <p className="text-sm text-muted-foreground line-clamp-2">{testimonial.message}</p>
+                    <p className="text-sm text-muted-foreground line-clamp-2">
+                      {testimonial.message}
+                    </p>
                     <div className="flex items-center pt-2">
                       <Badge variant="outline" className="text-xs">
                         {formatDate(testimonial.date)}
@@ -262,16 +309,16 @@ export function TestimonialList() {
                       <DropdownMenuContent align="end">
                         <DropdownMenuItem
                           onClick={() => {
-                            setSelectedTestimonial(testimonial)
-                            setViewDialogOpen(true)
+                            setSelectedTestimonial(testimonial);
+                            setViewDialogOpen(true);
                           }}
                         >
                           View details
                         </DropdownMenuItem>
                         <DropdownMenuItem
                           onClick={() => {
-                            setSelectedTestimonial(testimonial)
-                            setDeleteDialogOpen(true)
+                            setSelectedTestimonial(testimonial);
+                            setDeleteDialogOpen(true);
                           }}
                           className="text-destructive focus:text-destructive"
                         >
@@ -291,16 +338,23 @@ export function TestimonialList() {
         </CardContent>
         <CardFooter className="flex flex-col-reverse sm:flex-row sm:justify-between sm:space-x-2">
           <div className="mt-4 text-sm text-muted-foreground sm:mt-0">
-            Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, testimonials.length)} of {testimonials.length}{" "}
-            entries
+            Showing {indexOfFirstItem + 1} to{" "}
+            {Math.min(indexOfLastItem, testimonials.length)} of{" "}
+            {testimonials.length} entries
           </div>
 
           <Pagination>
             <PaginationContent>
               <PaginationItem>
                 <PaginationPrevious
-                  onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                  className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.max(prev - 1, 1))
+                  }
+                  className={
+                    currentPage === 1
+                      ? "pointer-events-none opacity-50"
+                      : "cursor-pointer"
+                  }
                 />
               </PaginationItem>
 
@@ -311,17 +365,26 @@ export function TestimonialList() {
                   </PaginationItem>
                 ) : (
                   <PaginationItem key={page}>
-                    <PaginationLink isActive={page === currentPage} onClick={() => setCurrentPage(page as number)}>
+                    <PaginationLink
+                      isActive={page === currentPage}
+                      onClick={() => setCurrentPage(page as number)}
+                    >
                       {page}
                     </PaginationLink>
                   </PaginationItem>
-                ),
+                )
               )}
 
               <PaginationItem>
                 <PaginationNext
-                  onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-                  className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                  }
+                  className={
+                    currentPage === totalPages
+                      ? "pointer-events-none opacity-50"
+                      : "cursor-pointer"
+                  }
                 />
               </PaginationItem>
             </PaginationContent>
@@ -353,9 +416,14 @@ export function TestimonialList() {
               <div>
                 <h3 className="font-medium">Rating</h3>
                 <div className="flex items-center space-x-1">
-                  {Array.from({ length: selectedTestimonial.rating }).map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-primary text-primary" />
-                  ))}
+                  {Array.from({ length: selectedTestimonial.rating }).map(
+                    (_, i) => (
+                      <Star
+                        key={i}
+                        className="h-4 w-4 fill-primary text-primary"
+                      />
+                    )
+                  )}
                 </div>
               </div>
               <div>
@@ -378,20 +446,28 @@ export function TestimonialList() {
           <DialogHeader>
             <DialogTitle>Delete Testimonial</DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete this testimonial? This action cannot be undone.
+              Are you sure you want to delete this testimonial? This action
+              cannot be undone.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setDeleteDialogOpen(false)}>
+            <Button
+              variant="outline"
+              onClick={() => setDeleteDialogOpen(false)}
+            >
               Cancel
             </Button>
-            <Button variant="destructive" onClick={() => selectedTestimonial && handleDelete(selectedTestimonial.id)}>
+            <Button
+              variant="destructive"
+              onClick={() =>
+                selectedTestimonial && handleDelete(selectedTestimonial.id)
+              }
+            >
               Delete
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
     </>
-  )
+  );
 }
-

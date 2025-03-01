@@ -1,14 +1,20 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { MessageSquareQuote, LayoutDashboard, User, LogOut, Settings } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { ThemeToggle } from "@/components/theme-toggle"
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Button } from "../components/ui/button";
+import {
+  MessageSquareQuote,
+  LayoutDashboard,
+  User,
+  LogOut,
+  Settings,
+} from "lucide-react";
+import { cn } from "../lib/utils";
+import { ThemeToggle } from "../components/theme-toggle";
 
 export function Sidebar() {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   const routes = [
     {
@@ -26,7 +32,7 @@ export function Sidebar() {
       icon: Settings,
       label: "Settings",
     },
-  ]
+  ];
 
   return (
     <div className="flex h-full flex-col border-r bg-background">
@@ -44,7 +50,7 @@ export function Sidebar() {
               href={route.href}
               className={cn(
                 "flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-foreground",
-                pathname === route.href && "bg-secondary text-foreground",
+                pathname === route.href && "bg-secondary text-foreground"
               )}
             >
               <route.icon className="h-4 w-4" />
@@ -63,6 +69,5 @@ export function Sidebar() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-

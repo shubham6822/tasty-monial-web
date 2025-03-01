@@ -1,39 +1,46 @@
-"use client"
+"use client";
 
-import type React from "react"
-
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { MessageSquareQuote, Star } from "lucide-react"
-import { ThemeToggle } from "@/components/theme-toggle"
-import { cn } from "@/lib/utils"
+import { useState, FormEvent } from "react";
+import { useRouter } from "next/navigation";
+import { MessageSquareQuote, Star } from "lucide-react";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardFooter,
+  CardContent,
+} from "../../../components/ui/card";
+import { Textarea } from "../../../components/ui/textarea";
+import { cn } from "../../../lib/utils";
+import { Button } from "../../../components/ui/button";
+import { ThemeToggle } from "../../../components/theme-toggle";
+import { Label } from "../../../components/ui/label";
+import { Input } from "../../../components/ui/input";
 
 export default function SubmitTestimonialPage({
   params,
 }: {
-  params: { userId: string }
+  params: { userId: string };
 }) {
-  const router = useRouter()
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  const [rating, setRating] = useState(0)
-  const [hoveredRating, setHoveredRating] = useState(0)
+  const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [hoveredRating, setHoveredRating] = useState(0);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (rating === 0) return;
+
+    setIsSubmitting(true);
 
     // Simulate API call
     setTimeout(() => {
-      setIsSubmitting(false)
-      setIsSubmitted(true)
-    }, 1500)
-  }
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+    }, 1500);
+  };
 
   if (isSubmitted) {
     return (
@@ -44,7 +51,9 @@ export default function SubmitTestimonialPage({
               <MessageSquareQuote className="h-10 w-10 text-primary" />
             </div>
             <CardTitle className="text-center text-2xl">Thank You!</CardTitle>
-            <CardDescription className="text-center">Your testimonial has been submitted successfully.</CardDescription>
+            <CardDescription className="text-center">
+              Your testimonial has been submitted successfully.
+            </CardDescription>
           </CardHeader>
           <CardFooter>
             <Button className="w-full" onClick={() => router.refresh()}>
@@ -53,7 +62,7 @@ export default function SubmitTestimonialPage({
           </CardFooter>
         </Card>
       </div>
-    )
+    );
   }
 
   return (
@@ -64,7 +73,13 @@ export default function SubmitTestimonialPage({
       <Card className="w-full max-w-md animate-in">
         <CardHeader>
           <CardTitle className="text-2xl">Share Your Experience</CardTitle>
-          <CardDescription>We appreciate your feedback! Please share your thoughts about our services.</CardDescription>
+          <CardDescription>
+            We appreciate your feedback! Please share your thoughts about our
+            services.
+          </CardDescription>
+          <CardDescription>
+            Submitting as user: <strong>{params.userId}</strong>
+          </CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>
           <CardContent className="grid gap-4">
@@ -91,14 +106,23 @@ export default function SubmitTestimonialPage({
                     <Star
                       className={cn(
                         "h-6 w-6 transition-all",
-                        (hoveredRating ? value <= hoveredRating : value <= rating)
+                        (
+                          hoveredRating
+                            ? value <= hoveredRating
+                            : value <= rating
+                        )
                           ? "fill-primary text-primary"
-                          : "text-muted-foreground",
+                          : "text-muted-foreground"
                       )}
                     />
                   </button>
                 ))}
               </div>
+              {rating === 0 && (
+                <p className="text-red-500 text-sm">
+                  Please select a rating before submitting.
+                </p>
+              )}
             </div>
             <div className="grid gap-2">
               <Label htmlFor="message">Your Testimonial</Label>
@@ -111,13 +135,16 @@ export default function SubmitTestimonialPage({
             </div>
           </CardContent>
           <CardFooter>
-            <Button className="w-full" disabled={isSubmitting || rating === 0}>
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={isSubmitting || rating === 0}
+            >
               {isSubmitting ? "Submitting..." : "Submit Testimonial"}
             </Button>
           </CardFooter>
         </form>
       </Card>
     </div>
-  )
+  );
 }
-
