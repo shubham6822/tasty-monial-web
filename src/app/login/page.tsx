@@ -10,22 +10,35 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ThemeToggle } from "../../components/theme-toggle";
 import { MessageSquareQuote } from "lucide-react";
+import { getUser } from "../../lib/actions/user.action";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | undefined>();
+
   const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData.entries());
+    const res = await getUser({
+      email: data?.email as string,
+      password: data?.password as string,
+    });
+    console.log("res", res);
 
-    // Simulate login
-    setTimeout(() => {
-      setIsLoading(false);
+    if (!res?.success) {
+      setError(res?.error);
+    }
+    setIsLoading(false);
+    if (res?.data) {
+      localStorage.setItem("token", res?.data);
       router.push("/dashboard");
-    }, 1000);
+    }
   };
 
   return (
@@ -53,10 +66,9 @@ export default function LoginPage() {
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
+                name="email"
                 type="email"
                 placeholder="you@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
@@ -74,12 +86,13 @@ export default function LoginPage() {
               <Input
                 id="password"
                 type="password"
+                name="password"
                 placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </div>
+
+            {error && <p className="text-red-500  text-sm">{error}</p>}
 
             <Button type="submit" className="w-full" disabled={isLoading}>
               {isLoading ? "Signing in..." : "Sign in"}

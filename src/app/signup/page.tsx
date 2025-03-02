@@ -13,6 +13,7 @@ import { createUser } from "../../lib/actions/user.action";
 
 export default function SignupPage() {
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | undefined>();
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -26,7 +27,11 @@ export default function SignupPage() {
       name: data.name as string,
       password: data.password as string,
     });
-    console.log("res", res);
+    setIsLoading(false);
+    if (res?.error) setError(res?.error);
+    if (res?.success) {
+      router.push("/login");
+    }
   };
 
   return (
@@ -85,7 +90,7 @@ export default function SignupPage() {
                 Must be at least 8 characters
               </p>
             </div>
-
+            {error && <p className="text-red-500  text-sm">{error}</p>}
             <Button type="submit" className="w-full" disabled={isLoading}>
               {isLoading ? "Creating account..." : "Create account"}
             </Button>
