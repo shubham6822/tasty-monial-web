@@ -21,6 +21,7 @@ import {
   Settings,
   LogOut,
 } from "lucide-react";
+import { deleteCookie } from "cookies-next";
 
 interface NavItem {
   href: string;
@@ -59,9 +60,11 @@ function NavItem({
   href,
   icon: Icon,
   children,
+  onClick,
 }: {
   href: string;
   icon: any;
+  onClick?: () => void;
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
@@ -70,6 +73,7 @@ function NavItem({
   return (
     <Link
       href={href}
+      onClick={onClick}
       className={cn(
         "flex items-center px-3 py-2 text-sm rounded-md transition-colors",
         "hover:bg-gray-100 dark:hover:bg-gray-800/50",
@@ -97,7 +101,7 @@ export default function Sidebar() {
       <div className="p-4 border-gray-200 dark:border-gray-800">
         <div className="flex items-center gap-3">
           <Image
-            src="/placeholder.svg?height=32&width=32"
+            src="/default.jpg"
             alt="Avatar"
             width={32}
             height={32}
@@ -163,7 +167,7 @@ export default function Sidebar() {
           <NavItem href="/settings" icon={Settings}>
             Settings
           </NavItem>
-          <NavItem href="/logout" icon={LogOut}>
+          <NavItem href="/" icon={LogOut} onClick={() => deleteCookie("token")}>
             LogOut
           </NavItem>
         </div>

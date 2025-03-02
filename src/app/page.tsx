@@ -62,7 +62,7 @@ export default function Home() {
                 <span className="font-bold"> 100+ </span> happy users
               </span>
             </div>
-            <h1 className="font-bold text-3xl sm:text-5xl md:text-6xl lg:text-7xl">
+            <h1 className="font-semibold text-3xl sm:text-5xl md:text-6xl lg:text-7xl">
               The Easiest Way to Collect & Showcase
               <span className="text-primary"> Testimonials</span>
             </h1>
@@ -198,7 +198,7 @@ export default function Home() {
             </div>
 
             <div className="mt-12 text-center">
-              <Link href="/sign-up">
+              <Link href="/signup">
                 <Button className="group">
                   Get Started
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -538,7 +538,7 @@ export default function Home() {
                   </li>
                 </ul>
                 <div className="mt-auto">
-                  <Link href="/sign-up">
+                  <Link href="/signup">
                     <Button className="w-full">Get Started</Button>
                   </Link>
                 </div>
@@ -581,7 +581,7 @@ export default function Home() {
                   </li>
                 </ul>
                 <div className="mt-auto">
-                  <Link href="/sign-up">
+                  <Link href="/signup">
                     <Button className="w-full">Get Started</Button>
                   </Link>
                 </div>
@@ -621,7 +621,7 @@ export default function Home() {
                   </li>
                 </ul>
                 <div className="mt-auto">
-                  <Link href="/sign-up">
+                  <Link href="/signup">
                     <Button className="w-full">Get Started</Button>
                   </Link>
                 </div>
@@ -732,7 +732,7 @@ export default function Home() {
               Tasty-Monial to collect and showcase testimonials.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4">
-              <Link href="/sign-up">
+              <Link href="/signup">
                 <Button size="lg" variant="secondary" className="h-12 px-8">
                   Get Started for Free
                 </Button>
