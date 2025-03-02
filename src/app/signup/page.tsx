@@ -1,7 +1,6 @@
 "use client";
 
 import type React from "react";
-
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
@@ -10,23 +9,24 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ThemeToggle } from "../../components/theme-toggle";
 import { MessageSquareQuote } from "lucide-react";
+import { createUser } from "../../lib/actions/user.action";
 
 export default function SignupPage() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate signup
-    setTimeout(() => {
-      setIsLoading(false);
-      router.push("/dashboard");
-    }, 1000);
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData.entries());
+    const res = await createUser({
+      email: data.email as string,
+      name: data.name as string,
+      password: data.password as string,
+    });
+    console.log("res", res);
   };
 
   return (
@@ -54,10 +54,9 @@ export default function SignupPage() {
               <Label htmlFor="name">Full Name</Label>
               <Input
                 id="name"
+                name="name"
                 type="text"
                 placeholder="John Doe"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
                 required
               />
             </div>
@@ -66,10 +65,9 @@ export default function SignupPage() {
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
+                name="email"
                 type="email"
                 placeholder="you@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
@@ -78,10 +76,9 @@ export default function SignupPage() {
               <Label htmlFor="password">Password</Label>
               <Input
                 id="password"
+                name="password"
                 type="password"
                 placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
                 required
               />
               <p className="text-xs text-gray-500 dark:text-gray-400">
