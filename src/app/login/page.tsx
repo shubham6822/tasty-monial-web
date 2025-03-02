@@ -1,7 +1,7 @@
 "use client";
 
 import type React from "react";
-
+import { setCookie } from "cookies-next";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
@@ -29,14 +29,13 @@ export default function LoginPage() {
       email: data?.email as string,
       password: data?.password as string,
     });
-    console.log("res", res);
 
     if (!res?.success) {
       setError(res?.error);
     }
     setIsLoading(false);
     if (res?.data) {
-      localStorage.setItem("token", res?.data);
+      setCookie("token", res.data);
       router.push("/dashboard");
     }
   };
