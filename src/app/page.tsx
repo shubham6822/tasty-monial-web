@@ -28,10 +28,11 @@ import {
   AccordionTrigger,
 } from "../components/ui/accordion";
 import { cookies } from "next/headers";
+import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col px-32">
+    <div className="flex min-h-screen flex-col md:px-32">
       <header className="sticky top-0 z-50 w-full pt-3 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center gap-2 font-bold">
@@ -70,13 +71,21 @@ export default function Home() {
               Tasty-Monial helps you gather, manage, and display testimonials
               from your clients and users—effortlessly!
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-4">
+            <div className="flex flex-wrap items-center justify-center gap-4 mb-5">
               <Link href="/signup">
                 <button className="focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-950 disabled:pointer-events-none disabled:opacity-50 flex-1 bg-gradient-to-r from-blue-400 to-purple-600 text-white hover:from-blue-500 hover:to-purple-700 px-4 sm:px-6 py-3 sm:py-4 rounded-xl flex items-center justify-center space-x-2 text-sm sm:text-base font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg w-full sm:w-[220px]">
                   <span>Get Started for Free</span>
                 </button>
               </Link>
             </div>
+            <Image
+              src={"/dashboard-light.png"}
+              alt="dashhboar-image"
+              width={140}
+              height={140}
+              className=" w-full h-full rounded-3xl border-2 shadow-xl "
+              unoptimized
+            />
           </div>
         </section>
 
@@ -722,7 +731,7 @@ export default function Home() {
         </section>
 
         {/* Final CTA Section */}
-        <section className="container py-16 md:py-24 bg-primary text-primary-foreground">
+        <section className="container py-16 md:py-24 bg-primary text-primary-foreground rounded-3xl">
           <div className="mx-auto max-w-4xl text-center">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl mb-6">
               Start Collecting Testimonials Today!
