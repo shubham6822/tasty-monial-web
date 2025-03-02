@@ -17,6 +17,7 @@ import { Button } from "../../../components/ui/button";
 import { ThemeToggle } from "../../../components/theme-toggle";
 import { Label } from "../../../components/ui/label";
 import { Input } from "../../../components/ui/input";
+import Link from "next/link";
 
 export default function SubmitTestimonialPage({
   params,
@@ -67,18 +68,12 @@ export default function SubmitTestimonialPage({
 
   return (
     <div className="container flex min-h-screen flex-col items-center justify-center">
-      <div className="absolute right-4 top-4 md:right-8 md:top-8">
-        <ThemeToggle />
-      </div>
       <Card className="w-full max-w-md animate-in">
         <CardHeader>
           <CardTitle className="text-2xl">Share Your Experience</CardTitle>
           <CardDescription>
             We appreciate your feedback! Please share your thoughts about our
             services.
-          </CardDescription>
-          <CardDescription>
-            Submitting as user: <strong>{params.userId}</strong>
           </CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>
@@ -134,14 +129,20 @@ export default function SubmitTestimonialPage({
               />
             </div>
           </CardContent>
-          <CardFooter>
+          <CardFooter className="flex flex-col">
             <Button
               type="submit"
-              className="w-full"
+              className="w-full "
               disabled={isSubmitting || rating === 0}
             >
               {isSubmitting ? "Submitting..." : "Submit Testimonial"}
             </Button>
+            <p className="text-sm text-gray-400 pt-2">
+              Powered by{" "}
+              <Link href={"/"} className="dark:text-white text-black">
+                Tastymonial.com
+              </Link>
+            </p>
           </CardFooter>
         </form>
       </Card>

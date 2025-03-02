@@ -6,6 +6,7 @@ import { Input } from "../components/ui/input";
 import { Copy, ExternalLink } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface ShareFormProps {
   className?: string;
@@ -69,10 +70,15 @@ export default function ShareForm({ className }: ShareFormProps) {
           Add this code to your website to embed the testimonial form
         </p>
         <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded-md text-xs font-mono text-gray-800 dark:text-gray-300 overflow-x-auto">
-          {
-            '<iframe src="https://tasty-monial.com/form/abc123" width="100%" height="500px"></iframe>'
-          }
+          {"npm install @tasty-monial"}
         </div>
+        <Link
+          href={"https://www.npmjs.com/package/tasty-monial"}
+          target="_blank"
+          className="text-xs text-blue-500 dark:text-blue-400 mb-3"
+        >
+          ReadMore
+        </Link>
       </div>
     </div>
   );

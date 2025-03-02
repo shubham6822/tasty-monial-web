@@ -1,16 +1,16 @@
 "use client";
 
 import type React from "react";
-
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
+import { cn } from "../lib/utils";
 import {
   FileText,
   Upload,
   MessageSquare,
   Search,
   Tags,
-  Palette,
-  Heart,
-  Sparkles,
   Info,
   Share2,
   MessageCircle,
@@ -19,18 +19,13 @@ import {
   BarChart2,
   Folder,
   Settings,
-  HelpCircle,
+  LogOut,
 } from "lucide-react";
-import Link from "next/link";
-import Image from "next/image";
-import { cn } from "../lib/utils";
-import { Badge } from "../components/ui/badge";
 
 interface NavItem {
   href: string;
   icon: React.ComponentType<{ className?: string }>;
   label: string;
-  badge?: string;
   isNew?: boolean;
 }
 
@@ -43,87 +38,19 @@ const navigation: NavSection[] = [
   {
     title: "OVERVIEW",
     items: [
-      {
-        href: "/dashboard",
-        icon: Home,
-        label: "Dashboard",
-      },
-      {
-        href: "#",
-        icon: BarChart2,
-        label: "Analytics",
-      },
-      {
-        href: "#",
-        icon: MessageSquare,
-        label: "Testimonial",
-      },
-      {
-        href: "#",
-        icon: Folder,
-        label: "Project",
-        isNew: true,
-      },
+      { href: "/dashboard", icon: Home, label: "Dashboard" },
+      { href: "/analytics", icon: BarChart2, label: "Analytics", isNew: true },
+      { href: "/testimonials", icon: MessageSquare, label: "Testimonial" },
+      { href: "/projects", icon: Folder, label: "Project" },
     ],
   },
-  // {
-  //   title: "COLLECT",
-  //   items: [
-  //     {
-  //       href: "/forms",
-  //       icon: FileText,
-  //       label: "Forms",
-  //     },
-  //     {
-  //       href: "/import",
-  //       icon: Upload,
-  //       label: "Import Testimonials",
-  //     },
-  //   ],
-  // },
-  // {
-  //   title: "MANAGE",
-  //   items: [
-  //     {
-  //       href: "/testimonials",
-  //       icon: MessageSquare,
-  //       label: "Testimonials",
-  //     },
-  //     {
-  //       href: "/search",
-  //       icon: Search,
-  //       label: "Search",
-  //     },
-  //     {
-  //       href: "/tags",
-  //       icon: Tags,
-  //       label: "Tags",
-  //     },
-  //   ],
-  // },
   {
     title: "HELP & RESOURCES",
     items: [
-      {
-        href: "/whats-new",
-        icon: Info,
-        label: "What's new",
-      },
-      {
-        href: "/affiliate",
-        icon: Share2,
-        label: "Affiliate Program",
-      },
-      {
-        href: "/feedback",
-        icon: MessageCircle,
-        label: "Feedback",
-      },
-      {
-        href: "/community",
-        icon: Users,
-        label: "Community",
-      },
+      { href: "/whats-new", icon: Info, label: "What's new" },
+      { href: "/affiliate", icon: Share2, label: "Affiliate Program" },
+      { href: "/feedback", icon: MessageCircle, label: "Feedback" },
+      { href: "/community", icon: Users, label: "Community" },
     ],
   },
 ];
@@ -137,20 +64,36 @@ function NavItem({
   icon: any;
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  const isActive = pathname === href;
+
   return (
     <Link
       href={href}
-      className="flex items-center px-3 py-2 text-sm rounded-md transition-colors text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-[#1F1F23]"
+      className={cn(
+        "flex items-center px-3 py-2 text-sm rounded-md transition-colors",
+        "hover:bg-gray-100 dark:hover:bg-gray-800/50",
+        isActive
+          ? "text-blue-600 dark:text-blue-400 font-semibold bg-gray-100 dark:bg-gray-800"
+          : "text-gray-600 dark:text-gray-300"
+      )}
     >
-      <Icon className="h-4 w-4 mr-3 flex-shrink-0" />
+      <Icon
+        className={cn(
+          "h-4 w-4 mr-3",
+          isActive ? "text-blue-600 dark:text-blue-400" : ""
+        )}
+      />
       {children}
     </Link>
   );
 }
 
 export default function Sidebar() {
+  const pathname = usePathname();
+
   return (
-    <div className="w-60 p-2 h-screen flex flex-col bg-gray-50 dark:bg-[#1F1F23]  dark:border-gray-800">
+    <div className="w-60 p-2 h-screen flex flex-col bg-gray-50 dark:bg-[#1F1F23] dark:border-gray-800">
       <div className="p-4 border-gray-200 dark:border-gray-800">
         <div className="flex items-center gap-3">
           <Image
@@ -165,9 +108,9 @@ export default function Sidebar() {
               <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
                 Shubham
               </span>
-              <Badge variant="secondary" className="h-5 text-xs font-normal">
+              <span className="hidden sm:inline-block px-2 py-0.5 text-xs bg-gradient-to-r from-blue-400/20 to-purple-400/20 text-blue-500 rounded-full border border-blue-400/20 pointer-events-none">
                 Admin
-              </Badge>
+              </span>
             </div>
           </div>
         </div>
@@ -182,36 +125,46 @@ export default function Sidebar() {
               </h3>
             </div>
             <nav className="space-y-1">
-              {section.items.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={cn(
-                    "flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300",
-                    "hover:bg-gray-100 dark:hover:bg-gray-800/50",
-                    "group relative"
-                  )}
-                >
-                  <item.icon className="h-4 w-4" />
-                  <span>{item.label}</span>
-                  {item.isNew && (
-                    <Badge variant="secondary" className="ml-auto text-xs">
-                      New
-                    </Badge>
-                  )}
-                </Link>
-              ))}
+              {section.items.map((item) => {
+                const isActive = pathname === item.href;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={cn(
+                      "flex items-center gap-2 px-4 py-2 text-sm",
+                      "hover:bg-gray-100 dark:hover:bg-gray-800/50 rounded-3xl",
+                      isActive
+                        ? "text-blue-600 dark:text-blue-400 font-semibold bg-gray-100 dark:bg-gray-800"
+                        : "text-gray-700 dark:text-gray-300"
+                    )}
+                  >
+                    <item.icon
+                      className={cn(
+                        "h-4 w-4",
+                        isActive ? "text-blue-600 dark:text-blue-400" : ""
+                      )}
+                    />
+                    <span>{item.label}</span>
+                    {item.isNew && (
+                      <div className="hidden sm:inline-block px-2 py-0.5 text-xs bg-gradient-to-r from-blue-400/20 to-purple-400/20 text-blue-500 rounded-full border border-blue-400/20 pointer-events-none">
+                        New
+                      </div>
+                    )}
+                  </Link>
+                );
+              })}
             </nav>
           </div>
         ))}
       </div>
       <div className="px-4 py-4 border-t border-gray-200 dark:border-[#1F1F23]">
         <div className="space-y-1">
-          <NavItem href="/s" icon={Settings}>
+          <NavItem href="/settings" icon={Settings}>
             Settings
           </NavItem>
-          <NavItem href="/h" icon={HelpCircle}>
-            Help
+          <NavItem href="/logout" icon={LogOut}>
+            LogOut
           </NavItem>
         </div>
       </div>

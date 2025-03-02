@@ -9,7 +9,7 @@ export function middleware(req: NextRequest) {
 
   if (!isPublicRoute && !token) {
     // Redirect to home if token is missing
-    return NextResponse.redirect(new URL("/", req.url));
+    return NextResponse.redirect(new URL("/login", req.url));
   }
 
   return NextResponse.next(); // Allow request to proceed

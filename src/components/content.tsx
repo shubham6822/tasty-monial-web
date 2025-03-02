@@ -2,12 +2,16 @@ import { MessageSquare, Share2, Users, Home } from "lucide-react";
 import TestimonialList from "./testimonial-list";
 import ShareForm from "../components/share-form";
 import TestimonialStats from "../components/testimonial-stats";
+import { ThemeToggle } from "./theme-toggle";
 
 export default function Content() {
   return (
     <div className="space-y-4">
-      <h1 className="text-3xl font-bold  mb-6  text-left flex items-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600 gap-2">
-        <Home size={30} color="#60a5fa" /> Dashboard
+      <h1 className="text-3xl   mb-6  text-left flex items-center gap-3 justify-between text-gray-500 dark:text-gray-400 ">
+        <div className="flex items-center gap-1">
+          <Home size={30} /> Dashboard
+        </div>
+        <ThemeToggle />
       </h1>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-6 flex flex-col border border-gray-200 dark:border-[#1F1F23]">
