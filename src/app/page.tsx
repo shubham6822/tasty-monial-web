@@ -37,7 +37,7 @@ export default function Home() {
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center gap-2 font-bold">
             <MessageSquareQuote className="h-6 w-6 text-primary" />
-            <span>Tasty-Monial</span>
+            <span>TastyMonial</span>
           </div>
           <div className="flex items-center gap-4">
             <ThemeToggle />
@@ -68,7 +68,7 @@ export default function Home() {
               <span className="text-primary"> Testimonials</span>
             </h1>
             <p className="max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
-              Tasty-Monial helps you gather, manage, and display testimonials
+              TastyMonial helps you gather, manage, and display testimonials
               from your clients and users—effortlessly!
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4 mb-5">
@@ -307,7 +307,7 @@ export default function Home() {
                 Trusted by Developers
               </h2>
               <p className="mt-4 text-lg text-muted-foreground">
-                See what our users are saying about Tasty-Monial
+                See what our users are saying about TastyMonial
               </p>
             </div>
 
@@ -321,7 +321,7 @@ export default function Home() {
                   <Star className="h-5 w-5 fill-current" />
                 </div>
                 <p className="mb-4 italic text-muted-foreground">
-                  "Tasty-Monial has completely transformed how we collect and
+                  "TastyMonial has completely transformed how we collect and
                   showcase client feedback. The setup was incredibly easy, and
                   our conversion rates have improved by 30%!"
                 </p>
@@ -348,7 +348,7 @@ export default function Home() {
                 </div>
                 <p className="mb-4 italic text-muted-foreground">
                   "As a freelance developer, I needed a simple way to collect
-                  testimonials from clients. Tasty-Monial is exactly what I was
+                  testimonials from clients. TastyMonial is exactly what I was
                   looking for - it took less than 5 minutes to set up!"
                 </p>
                 <div className="mt-auto flex items-center">
@@ -421,7 +421,7 @@ export default function Home() {
           <div className="mx-auto max-w-5xl">
             <div className="mb-12 text-center">
               <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-                Why Choose Tasty-Monial?
+                Why Choose TastyMonial?
               </h2>
               <p className="mt-4 text-lg text-muted-foreground">
                 See how we compare to manual testimonial management
@@ -433,7 +433,7 @@ export default function Home() {
                 <thead>
                   <tr className="border-b">
                     <th className="py-4 px-6 text-left">Feature</th>
-                    <th className="py-4 px-6 text-center">Tasty-Monial</th>
+                    <th className="py-4 px-6 text-center">TastyMonial</th>
                     <th className="py-4 px-6 text-center">Manual Collection</th>
                   </tr>
                 </thead>
@@ -657,7 +657,7 @@ export default function Home() {
                 Frequently Asked Questions
               </h2>
               <p className="mt-4 text-lg text-muted-foreground">
-                Everything you need to know about Tasty-Monial
+                Everything you need to know about TastyMonial
               </p>
             </div>
 
@@ -677,7 +677,7 @@ export default function Home() {
               <AccordionItem value="item-2">
                 <AccordionTrigger>Can I customize the widget?</AccordionTrigger>
                 <AccordionContent>
-                  Yes! Tasty-Monial offers extensive customization options. You
+                  Yes! TastyMonial offers extensive customization options. You
                   can change colors, fonts, layouts, and display styles to match
                   your brand. Pro and Team plans offer even more advanced
                   customization options.
@@ -697,7 +697,7 @@ export default function Home() {
                   How do I embed testimonials on my website?
                 </AccordionTrigger>
                 <AccordionContent>
-                  Tasty-Monial provides several ways to embed testimonials. You
+                  TastyMonial provides several ways to embed testimonials. You
                   can use our React component, JavaScript widget, or iframe
                   embed. Simply copy the code from your dashboard and paste it
                   into your website. We also provide WordPress and Webflow
@@ -717,10 +717,10 @@ export default function Home() {
               </AccordionItem>
               <AccordionItem value="item-6">
                 <AccordionTrigger>
-                  Is Tasty-Monial GDPR compliant?
+                  Is TastyMonial GDPR compliant?
                 </AccordionTrigger>
                 <AccordionContent>
-                  Yes, Tasty-Monial is fully GDPR compliant. We provide all the
+                  Yes, TastyMonial is fully GDPR compliant. We provide all the
                   necessary tools and documentation to help you collect and
                   manage testimonials in compliance with data protection
                   regulations.
@@ -738,7 +738,7 @@ export default function Home() {
             </h2>
             <p className="mb-8 text-lg opacity-90 max-w-2xl mx-auto">
               Join thousands of developers and businesses who are already using
-              Tasty-Monial to collect and showcase testimonials.
+              TastyMonial to collect and showcase testimonials.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link href="/signup">
@@ -762,7 +762,7 @@ export default function Home() {
       <footer className="border-t py-6 md:py-0">
         <div className="container flex flex-col items-center justify-between gap-4 md:h-16 md:flex-row">
           <p className="text-sm text-muted-foreground">
-            &copy; {new Date().getFullYear()} Tasty-Monial. All rights reserved.
+            &copy; {new Date().getFullYear()} TastyMonial. All rights reserved.
           </p>
           <div className="flex gap-4 text-sm text-muted-foreground">
             <Link href="/privacy" className="hover:underline">

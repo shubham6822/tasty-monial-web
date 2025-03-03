@@ -18,7 +18,7 @@ interface BreadcrumbItem {
 
 export default function TopNav() {
   const breadcrumbs: BreadcrumbItem[] = [
-    { label: "Tasty-Monial", href: "#" },
+    { label: "TastyMonial", href: "#" },
     { label: "dashboard", href: "#" },
   ];
 

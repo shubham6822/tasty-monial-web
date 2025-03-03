@@ -6,7 +6,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Tasty-Monial | Testimonial Management",
+  title: "TastyMonial",
   description: "A modern platform for collecting and managing testimonials",
 };
 
