@@ -137,10 +137,10 @@ export default function SubmitTestimonialPage({
             >
               {isSubmitting ? "Submitting..." : "Submit Testimonial"}
             </Button>
-            <p className="text-sm text-gray-400 pt-2">
+            <p className="text-sm text-gray-400 pt-4">
               Powered by{" "}
               <Link href={"/"} className="dark:text-white text-black">
-                Tastymonial.com
+                Tastymonial.in
               </Link>
             </p>
           </CardFooter>

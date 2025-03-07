@@ -10,6 +10,9 @@ import { useRouter } from "next/navigation";
 import { ThemeToggle } from "../../components/theme-toggle";
 import { MessageSquareQuote } from "lucide-react";
 import { createUser } from "../../lib/actions/user.action";
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../../lib/firebase";
+import { setCookie } from "cookies-next";
 
 export default function SignupPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -33,7 +36,35 @@ export default function SignupPage() {
       router.push("/login");
     }
   };
+  const handleGoogleLogin = async () => {
+    setIsLoading(true);
+    setError(undefined);
 
+    try {
+      // Wait for user interaction before showing the popup
+      document.body.click();
+
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      console.log("user", user);
+
+      if (user) {
+        setCookie("token", await user.getIdToken());
+        router.push("/dashboard");
+      }
+    } catch (error: any) {
+      if (error.code === "auth/popup-blocked") {
+        setError(
+          "Popup blocked! Please allow popups in your browser settings."
+        );
+      } else {
+        console.error("Google Sign-In Error:", error);
+        setError("Failed to sign in with Google");
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-[#0F0F12] p-4">
       <div className="absolute top-4 right-4">
@@ -106,7 +137,12 @@ export default function SignupPage() {
               </div>
             </div>
 
-            <Button variant="outline" type="button" className="w-full">
+            <Button
+              variant="outline"
+              type="button"
+              className="w-full"
+              onClick={handleGoogleLogin}
+            >
               <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
                 <path
                   d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"

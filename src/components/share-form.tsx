@@ -15,7 +15,7 @@ interface ShareFormProps {
 export default function ShareForm({ className }: ShareFormProps) {
   const [copied, setCopied] = useState(false);
   const router = useRouter();
-  const formLink = `${window.location.origin}/submit/user123`;
+  const formLink = `${window.location.origin}/review/user123`;
   const copyToClipboard = () => {
     navigator.clipboard.writeText(formLink);
     setCopied(true);

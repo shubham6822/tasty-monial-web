@@ -69,7 +69,7 @@ export default function Home() {
             </h1>
             <p className="max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
               TastyMonial helps you gather, manage, and display testimonials
-              from your clients and users—effortlessly!
+              from your clients and users effortlessly!
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4 mb-5">
               <Link href="/signup">
