@@ -53,7 +53,7 @@ export default function Home() {
       <main className="flex-1">
         {/* Hero section */}
         <section className="space-y-6 pb-8 pt-12 md:pb-12">
-          <div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center">
+          <div className="container flex  flex-col items-center gap-4 text-center">
             <div
               className="text-white py-1.5 sm:py-2 md:py-3 px-3 sm:px-4 md:px-6 rounded-full inline-flex items-center space-x-2 text-[13px] sm:text-sm md:text-base border border-gray-700 dark:bg-gradient-to-r from-blue-500/20 to-purple-500/20 "
               style={{ opacity: 1, transform: "none" }}
@@ -63,7 +63,7 @@ export default function Home() {
                 <span className="font-bold"> 100+ </span> happy users
               </span>
             </div>
-            <h1 className="font-semibold text-3xl sm:text-5xl md:text-6xl lg:text-7xl">
+            <h1 className="font-semibold text-3xl sm:text-5xl md:text-6xl lg:text-7xl max-w-[70rem]">
               The Easiest Way to Collect & Showcase
               <span className="text-primary"> Testimonials</span>
             </h1>
