@@ -13,8 +13,13 @@ import { MessageSquareQuote } from "lucide-react";
 import { getUser } from "../../lib/actions/user.action";
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../../lib/firebase";
+import { Toast } from "../../components/ui/toast";
+import { Toaster } from "../../components/ui/toaster";
+import { useToast } from "../../components/ui/use-toast";
 
 export default function LoginPage() {
+  const { toast } = useToast();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -27,18 +32,28 @@ export default function LoginPage() {
     setIsLoading(true);
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
-    const res = await getUser({
-      email: data?.email as string,
-      password: data?.password as string,
-    });
-
-    if (!res?.success) {
-      setError(res?.error);
-    }
-    setIsLoading(false);
-    if (res?.data) {
-      setCookie("token", res.data);
-      router.push("/dashboard");
+    try {
+      const res = await fetch("/api/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) {
+        setError(res?.error);
+      }
+      setIsLoading(false);
+      if (res?.data) {
+        setCookie("token", res.data);
+        router.push("/dashboard");
+      }
+    } catch (error) {
+      console.log(error);
+      toast({
+        title: "Error",
+        description: "Failed to sign in",
+      });
     }
   };
 
