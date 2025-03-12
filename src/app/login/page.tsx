@@ -33,23 +33,26 @@ export default function LoginPage() {
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
     try {
-      const res = await fetch("/api/user", {
+      const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
+      const response = await res.json();
+
       if (!res.ok) {
-        setError(res?.error);
+        setError(response?.error);
       }
       setIsLoading(false);
-      if (res?.data) {
-        setCookie("token", res.data);
+      if (response?.data) {
+        setCookie("token", response.data);
         router.push("/dashboard");
       }
     } catch (error) {
       console.log(error);
+      setError("Failed to sign in");
       toast({
         title: "Error",
         description: "Failed to sign in",

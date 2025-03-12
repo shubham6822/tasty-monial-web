@@ -25,15 +25,27 @@ export default function SignupPage() {
 
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
-    const res = await createUser({
-      email: data.email as string,
-      name: data.name as string,
-      password: data.password as string,
-    });
-    setIsLoading(false);
-    if (res?.error) setError(res?.error);
-    if (res?.success) {
-      router.push("/login");
+    try {
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (res.ok) {
+        const user = await res.json();
+        setCookie("token", user.token);
+        router.push("/dashboard");
+      } else {
+        const error = await res.json();
+        setError(error.error);
+        setIsLoading(false);
+      }
+    } catch (error) {
+      console.error("Error creating user:", error);
+      setError(error?.message || "An unexpected error occurred.");
     }
   };
   const handleGoogleLogin = async () => {
