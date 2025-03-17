@@ -1,10 +1,11 @@
 import { cn } from "../lib/utils";
 import { Star, Trash2, Eye } from "lucide-react";
 import { Button } from "../components/ui/button";
+import { headers } from "next/headers";
 
 interface Testimonial {
-  id: string;
-  clientName: string;
+  _id: string;
+  name: string;
   message: string;
   date: string;
   rating: number;
@@ -50,21 +51,29 @@ const TESTIMONIALS: Testimonial[] = [
   },
 ];
 
-export default function TestimonialList({
-  testimonials = TESTIMONIALS,
+export default async function TestimonialList({
   className,
 }: TestimonialListProps) {
+  const baseUrl = (await headers()).get("host");
+  const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
+  const res = await fetch(`${protocol}://${baseUrl}/api/testimonials`);
+  if (!res.ok) {
+    console.error("Failed to fetch testimonials:", res);
+    return;
+  }
+  const testimonials = await res.json();
+
   return (
     <div className={cn("space-y-4", className)}>
-      {testimonials.map((testimonial) => (
+      {testimonials.map((testimonial: Testimonial) => (
         <div
-          key={testimonial.id}
+          key={testimonial._id}
           className="p-4 border-b border-gray-100 dark:border-gray-800  dark:hover:border-gray-700 transition-all duration-200"
         >
           <div className="flex justify-between items-start mb-2">
             <div>
               <h3 className="font-medium text-gray-900 dark:text-white">
-                {testimonial.clientName}
+                {testimonial.name}
               </h3>
               <div className="flex items-center mt-1">
                 {Array.from({ length: 5 }).map((_, i) => (

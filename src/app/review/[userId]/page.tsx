@@ -37,10 +37,35 @@ export default function SubmitTestimonialPage({
     setIsSubmitting(true);
 
     // Simulate API call
-    setTimeout(() => {
+    try {
+      const res = await fetch("/api/testimonials", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: (e.currentTarget.elements.namedItem("name") as HTMLInputElement)
+            .value,
+          email:
+            (e.currentTarget.elements.namedItem("email") as HTMLInputElement)
+              ?.value || "",
+          message: (
+            e.currentTarget.elements.namedItem("message") as HTMLTextAreaElement
+          ).value,
+          rating,
+        }),
+      });
+
+      if (!res.ok) {
+        console.error("Failed to submit testimonial:", res);
+        return;
+      }
+
       setIsSubmitting(false);
       setIsSubmitted(true);
-    }, 1500);
+    } catch (error) {
+      console.error("Error submitting testimonial:", error);
+    }
   };
 
   if (isSubmitted) {
@@ -56,10 +81,13 @@ export default function SubmitTestimonialPage({
               Your testimonial has been submitted successfully.
             </CardDescription>
           </CardHeader>
-          <CardFooter>
-            <Button className="w-full" onClick={() => router.refresh()}>
-              Submit Another Testimonial
-            </Button>
+          <CardFooter className="flex flex-col">
+            <p className="text-sm text-gray-400 pt-4">
+              Powered by{" "}
+              <Link href={"/"} className="dark:text-white text-black">
+                Tastymonial.in
+              </Link>
+            </p>
           </CardFooter>
         </Card>
       </div>
@@ -106,7 +134,7 @@ export default function SubmitTestimonialPage({
                             ? value <= hoveredRating
                             : value <= rating
                         )
-                          ? "fill-primary text-primary"
+                          ? "text-yellow-400 fill-yellow-400"
                           : "text-muted-foreground"
                       )}
                     />
