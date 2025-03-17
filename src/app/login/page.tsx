@@ -70,11 +70,27 @@ export default function LoginPage() {
 
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      console.log("user", user);
 
       if (user) {
-        setCookie("token", await user.getIdToken());
-        router.push("/dashboard");
+        const res = await fetch("/api/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: user.email,
+            password: "12345678",
+          }),
+        });
+
+        if (res.ok) {
+          const response = await res.json();
+          setCookie("token", response.data);
+          router.push("/dashboard");
+        } else {
+          const error = await res.json();
+          setError(error.error);
+        }
       }
     } catch (error: any) {
       if (error.code === "auth/popup-blocked") {
