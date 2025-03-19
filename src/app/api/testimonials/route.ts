@@ -1,12 +1,13 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "../../../lib/mongoose";
 import Testimonial from "../../../models/testimonial.model";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     await connectToDatabase();
     const body = await request.json();
-    const { name, email, message, rating } = body;
+    const { name, email, message, rating, userId } = body;
+    console.log("userId", userId);
 
     if (
       !name ||
@@ -25,6 +26,7 @@ export async function POST(request: Request) {
       email,
       message,
       rating,
+      userId,
     });
     return NextResponse.json(newTestimonial, { status: 201 });
   } catch (error) {

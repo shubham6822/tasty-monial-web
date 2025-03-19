@@ -21,7 +21,9 @@ import {
   Settings,
   LogOut,
 } from "lucide-react";
-import { deleteCookie } from "cookies-next";
+import { deleteCookie, getCookie } from "cookies-next";
+import { useEffect, useState } from "react";
+import { IUser } from "../models/user.model";
 
 interface NavItem {
   href: string;
@@ -95,6 +97,25 @@ function NavItem({
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const [user, setUser] = useState<IUser>();
+  useEffect(() => {
+    const token = getCookie("token");
+    const user = localStorage.getItem("user");
+    if (token && !user) {
+      fetch("/api/auth/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setUser(data.data);
+          localStorage.setItem("user", JSON.stringify(data.data));
+        });
+    } else {
+      setUser(JSON.parse(user || "{}"));
+    }
+  }, []);
 
   return (
     <div className="w-60 p-2 h-screen flex flex-col bg-gray-50 dark:bg-[#1F1F23] dark:border-gray-800">
@@ -110,7 +131,7 @@ export default function Sidebar() {
           <div className="flex flex-col">
             <div className="flex items-center gap-2">
               <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                Shubham
+                {user?.name}
               </span>
               <span className="hidden sm:inline-block px-2 py-0.5 text-xs bg-gradient-to-r from-blue-400/20 to-purple-400/20 text-blue-500 rounded-full border border-blue-400/20 pointer-events-none">
                 Admin

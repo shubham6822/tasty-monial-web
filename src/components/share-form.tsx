@@ -7,6 +7,7 @@ import { Copy, ExternalLink } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { IUser } from "../models/user.model";
 
 interface ShareFormProps {
   className?: string;
@@ -15,7 +16,11 @@ interface ShareFormProps {
 export default function ShareForm({ className }: ShareFormProps) {
   const [copied, setCopied] = useState(false);
   const router = useRouter();
-  const formLink = `${window.location.origin}/review/user123`;
+  const [user, setuser] = useState<IUser>(
+    JSON.parse(localStorage.getItem("user") || "{}")
+  );
+
+  const formLink = `${window.location.origin}/review/${user._id}`;
   const copyToClipboard = () => {
     navigator.clipboard.writeText(formLink);
     setCopied(true);

@@ -52,6 +52,7 @@ export default function SubmitTestimonialPage({
           message: (
             e.currentTarget.elements.namedItem("message") as HTMLTextAreaElement
           ).value,
+          userId: params.userId,
           rating,
         }),
       });
