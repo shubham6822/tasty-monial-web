@@ -16,12 +16,6 @@ import {
 } from "lucide-react";
 import { HomeInteractive } from "../components/home-interactive";
 import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "../components/ui/tabs";
-import {
   Accordion,
   AccordionContent,
   AccordionItem,
@@ -41,6 +35,9 @@ export default function Home() {
           </div>
           <div className="flex items-center gap-4">
             <ThemeToggle />
+            <Link href="/docs" className="text-sm font-medium">
+              Docs
+            </Link>
             <Link href="/dashboard">
               <Button variant="ghost">Dashboard</Button>
             </Link>
