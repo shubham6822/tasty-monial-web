@@ -160,7 +160,7 @@ export default function TestimonialsTable({
                         <Trash2 className="h-4 w-4" />
                         <span className="sr-only">Delete</span>
                       </Button>
-                      <DropdownMenu>
+                      {/* <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                           <Button
                             variant="ghost"
@@ -185,7 +185,7 @@ export default function TestimonialsTable({
                             <span>Delete</span>
                           </DropdownMenuItem>
                         </DropdownMenuContent>
-                      </DropdownMenu>
+                      </DropdownMenu> */}
                     </div>
                   </td>
                 </tr>

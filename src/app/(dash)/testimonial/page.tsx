@@ -254,10 +254,13 @@ export default function TestimonialsPage() {
   return (
     <>
       <div className="space-y-6">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="sm:flex-row justify-between items-start sm:items-center gap-4">
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
             Testimonials
           </h1>
+          <p className="text-gray-500 dark:text-gray-400 text-sm ">
+            Manage testimonials from your customers and clients
+          </p>
         </div>
 
         <div className="bg-white dark:bg-zinc-900/70 rounded-xl   backdrop-blur-xl p-6">

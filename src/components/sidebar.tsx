@@ -118,9 +118,9 @@ export default function Sidebar() {
   }, []);
 
   return (
-    <div className="w-60 p-2 h-screen flex flex-col bg-gray-50 dark:bg-[#1F1F23] dark:border-gray-800">
-      <div className="p-4 border-gray-200 dark:border-gray-800">
-        <div className="flex items-center gap-3">
+    <div className="w-60  h-screen flex flex-col bg-[#f9fafb] dark:bg-[#1F1F23] dark:border-gray-800 border-r border-gray-200">
+      <div className=" border-gray-200 border-b dark:border-gray-800">
+        <div className="flex items-center gap-3 p-4">
           <Image
             src="/default.jpg"
             alt="Avatar"
@@ -141,11 +141,11 @@ export default function Sidebar() {
         </div>
       </div>
 
-      <div className="flex-1 overflow-auto py-4">
+      <div className="flex-1 overflow-auto py-4 p-2">
         {navigation.map((section) => (
           <div key={section.title} className="mb-6">
             <div className="px-4 mb-2">
-              <h3 className="text-xs font-medium text-gray-500 dark:text-gray-400">
+              <h3 className="text-xs font-medium text-gray-500 dark:text-gray-400 pb-3">
                 {section.title}
               </h3>
             </div>
@@ -158,18 +158,13 @@ export default function Sidebar() {
                     href={item.href}
                     className={cn(
                       "flex items-center gap-2 px-4 py-2 text-sm",
-                      "hover:bg-gray-100 dark:hover:bg-gray-800/50 rounded-3xl",
+                      "hover:bg-gray-100 dark:hover:bg-gray-800/50 rounded-lg",
                       isActive
-                        ? "text-blue-600 dark:text-blue-400 font-semibold bg-gray-100 dark:bg-gray-800"
+                        ? "  bg-gray-200 dark:bg-gray-800"
                         : "text-gray-700 dark:text-gray-300"
                     )}
                   >
-                    <item.icon
-                      className={cn(
-                        "h-4 w-4",
-                        isActive ? "text-blue-600 dark:text-blue-400" : ""
-                      )}
-                    />
+                    <item.icon className={cn("h-4 w-4")} />
                     <span>{item.label}</span>
                     {item.isNew && (
                       <div className="hidden sm:inline-block px-2 py-0.5 text-xs bg-gradient-to-r from-blue-400/20 to-purple-400/20 text-blue-500 rounded-full border border-blue-400/20 pointer-events-none">

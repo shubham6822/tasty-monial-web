@@ -297,12 +297,12 @@ export default function TestimonialDetailPage({
   return (
     <>
       <div className="space-y-6">
-        <div className="flex items-center gap-4">
+        <div className=" items-center ">
           <Button variant="outline" onClick={() => router.push("/testimonial")}>
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Testimonials
           </Button>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white pt-6">
             Testimonial Details
           </h1>
         </div>
