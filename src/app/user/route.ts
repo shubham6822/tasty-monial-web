@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import User, { IUser } from "../../../models/user.model";
-import { connectToDatabase } from "../mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { connectToDatabase } from "../../lib/mongoose";
+import User from "../../models/user.model";
 
 const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key";
 const JWT_EXPIRATION = "7d";
