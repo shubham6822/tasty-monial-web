@@ -1,7 +1,7 @@
 import type React from "react";
 import type { Metadata } from "next";
-import { DocsSidebar } from "../../components/docs/DocsSidebar";
-import { DocsSearch } from "../../components/docs/DocsSearch";
+import { DocsSidebar } from "../../../components/docs/DocsSidebar";
+import { DocsSearch } from "../../../components/docs/DocsSearch";
 
 export const metadata: Metadata = {
   title: "Documentation | Tasty-Monial",

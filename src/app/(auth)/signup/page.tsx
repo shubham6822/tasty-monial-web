@@ -1,17 +1,16 @@
 "use client";
 
 import type React from "react";
-import { Button } from "../../components/ui/button";
-import { Input } from "../../components/ui/input";
-import { Label } from "../../components/ui/label";
+import { Button } from "../../../components/ui/button";
+import { Input } from "../../../components/ui/input";
+import { Label } from "../../../components/ui/label";
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ThemeToggle } from "../../components/theme-toggle";
+import { ThemeToggle } from "../../../components/theme-toggle";
 import { MessageSquareQuote } from "lucide-react";
-import { createUser } from "../../lib/actions/user.action";
 import { signInWithPopup } from "firebase/auth";
-import { auth, provider } from "../../lib/firebase";
+import { auth, provider } from "../../../lib/firebase";
 import { setCookie } from "cookies-next";
 
 export default function SignupPage() {
@@ -43,7 +42,7 @@ export default function SignupPage() {
         setError(error.error);
         setIsLoading(false);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error creating user:", error);
       setError(error?.message || "An unexpected error occurred.");
     }

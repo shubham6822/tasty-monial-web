@@ -1,15 +1,15 @@
 import Link from "next/link";
-import { Card, CardContent } from "../../components/ui/card";
+import { Card, CardContent } from "../../../components/ui/card";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "../../components/ui/tabs";
-import { CodeBlock } from "../../components/docs/CodeBlock";
-import { CodeTabs } from "../../components/docs/CodeTabs";
-import { FAQAccordion } from "../../components/docs/FAQAccordion";
-import { Button } from "../../components/ui/button";
+} from "../../../components/ui/tabs";
+import { CodeBlock } from "../../../components/docs/CodeBlock";
+import { CodeTabs } from "../../../components/docs/CodeTabs";
+import { FAQAccordion } from "../../../components/docs/FAQAccordion";
+import { Button } from "../../../components/ui/button";
 
 export default function DocsPage() {
   return (

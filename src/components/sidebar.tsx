@@ -43,7 +43,7 @@ const navigation: NavSection[] = [
     items: [
       { href: "/dashboard", icon: Home, label: "Dashboard" },
       { href: "/analytics", icon: BarChart2, label: "Analytics", isNew: true },
-      { href: "/testimonials", icon: MessageSquare, label: "Testimonial" },
+      { href: "/testimonial", icon: MessageSquare, label: "Testimonial" },
       { href: "/projects", icon: Folder, label: "Project" },
     ],
   },

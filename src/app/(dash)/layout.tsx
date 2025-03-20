@@ -1,9 +1,9 @@
 "use client";
 
 import type { ReactNode } from "react";
-import Sidebar from "./sidebar";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import Sidebar from "../../components/sidebar";
 
 interface LayoutProps {
   children: ReactNode;

@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(req: NextRequest) {
-  const publicRoutes = ["/", "/login", "/signup", "/dashboard-light.png"];
+  const publicRoutes = [
+    "/",
+    "/login",
+    "/signup",
+    "/dashboard-light.png",
+    "/docs",
+  ];
   const token = req.cookies.get("token")?.value; // Read token from cookies
 
   // Check if the user is trying to access a private route

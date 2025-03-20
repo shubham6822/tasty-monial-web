@@ -10,13 +10,13 @@ import {
   CardDescription,
   CardFooter,
   CardContent,
-} from "../../../components/ui/card";
-import { Textarea } from "../../../components/ui/textarea";
-import { cn } from "../../../lib/utils";
-import { Button } from "../../../components/ui/button";
-import { ThemeToggle } from "../../../components/theme-toggle";
-import { Label } from "../../../components/ui/label";
-import { Input } from "../../../components/ui/input";
+} from "../../../../components/ui/card";
+import { Textarea } from "../../../../components/ui/textarea";
+import { cn } from "../../../../lib/utils";
+import { Button } from "../../../../components/ui/button";
+import { ThemeToggle } from "../../../../components/theme-toggle";
+import { Label } from "../../../../components/ui/label";
+import { Input } from "../../../../components/ui/input";
 import Link from "next/link";
 
 export default function SubmitTestimonialPage({

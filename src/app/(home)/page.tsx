@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { Button } from "../components/ui/button";
-import { ThemeToggle } from "../components/theme-toggle";
+import { Button } from "../../components/ui/button";
+import { ThemeToggle } from "../../components/theme-toggle";
 import {
   MessageSquareQuote,
   Code,
@@ -14,13 +14,13 @@ import {
   Users,
   Star,
 } from "lucide-react";
-import { HomeInteractive } from "../components/home-interactive";
+import { HomeInteractive } from "../../components/home-interactive";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "../components/ui/accordion";
+} from "../../components/ui/accordion";
 import { cookies } from "next/headers";
 import Image from "next/image";
 

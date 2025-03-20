@@ -2,20 +2,17 @@
 
 import type React from "react";
 import { setCookie } from "cookies-next";
-import { Button } from "../../components/ui/button";
-import { Input } from "../../components/ui/input";
-import { Label } from "../../components/ui/label";
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ThemeToggle } from "../../components/theme-toggle";
 import { MessageSquareQuote } from "lucide-react";
-import { getUser } from "../../lib/actions/user.action";
 import { signInWithPopup } from "firebase/auth";
-import { auth, provider } from "../../lib/firebase";
-import { Toast } from "../../components/ui/toast";
-import { Toaster } from "../../components/ui/toaster";
-import { useToast } from "../../components/ui/use-toast";
+import { useToast } from "../../../components/ui/use-toast";
+import { auth, provider } from "../../../lib/firebase";
+import { ThemeToggle } from "../../../components/theme-toggle";
+import { Label } from "../../../components/ui/label";
+import { Input } from "../../../components/ui/input";
+import { Button } from "../../../components/ui/button";
 
 export default function LoginPage() {
   const { toast } = useToast();
