@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { cn } from "../lib/utils";
-import { Button } from "../components/ui/button";
+import { cn } from "../../lib/utils";
+import { Button } from "../ui/button";
 import {
   Card,
   CardContent,
@@ -10,13 +10,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../components/ui/card";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "../components/ui/tabs";
+} from "../ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 
 export function HomeInteractive() {
   const [activeTab, setActiveTab] = useState("step1");
