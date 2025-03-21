@@ -1,6 +1,8 @@
+import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "../../../lib/mongoose";
 import Testimonial from "../../../models/testimonial.model";
+import { decodeToken } from "../../../lib/decodeToken";
 
 export async function POST(request: NextRequest) {
   try {
@@ -37,10 +39,18 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
     await connectToDatabase();
-    const testimonials = await Testimonial.find().sort({ createdAt: -1 });
+    const userId = decodeToken(req);
+    if (!userId) {
+      return NextResponse.json(
+        { error: "Unauthorized access" },
+        { status: 403 }
+      );
+    }
+    const testimonials = await Testimonial.find({ userId: userId });
+
     return NextResponse.json(testimonials, { status: 200 });
   } catch (error) {
     console.error("Error fetching testimonials:", error);

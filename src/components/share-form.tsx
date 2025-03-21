@@ -3,11 +3,12 @@
 import { cn } from "../lib/utils";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
-import { Copy, ExternalLink } from "lucide-react";
+import { Copy, ExternalLink, Key } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { IUser } from "../models/user.model";
+import { getCookie } from "cookies-next";
 
 interface ShareFormProps {
   className?: string;
@@ -15,20 +16,26 @@ interface ShareFormProps {
 
 export default function ShareForm({ className }: ShareFormProps) {
   const [copied, setCopied] = useState(false);
+  const [keyCopied, setKeyCopied] = useState(false);
   const router = useRouter();
   const [user, setuser] = useState<IUser>(
     JSON.parse(localStorage.getItem("user") || "{}")
   );
 
   const formLink = `${window.location.origin}/review/${user._id}`;
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(formLink);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const secretKey = getCookie("token") || "your-secret-key";
+  const copyToClipboard = (
+    text: string,
+    setCopyState: (value: boolean) => void
+  ) => {
+    navigator.clipboard.writeText(text);
+    setCopyState(true);
+    setTimeout(() => setCopyState(false), 2000);
   };
 
   return (
     <div className={cn("space-y-4", className)}>
+      {/* Form Link Section */}
       <div className="p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg border border-indigo-100 dark:border-indigo-800">
         <h3 className="text-sm font-medium text-indigo-800 dark:text-indigo-300 mb-2">
           Your Unique Form Link
@@ -44,7 +51,7 @@ export default function ShareForm({ className }: ShareFormProps) {
             className="text-sm bg-white dark:bg-[#1F1F23] border-indigo-200 dark:border-indigo-800"
           />
           <Button
-            onClick={copyToClipboard}
+            onClick={() => copyToClipboard(formLink, setCopied)}
             variant="outline"
             className="border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 dark:hover:bg-indigo-900/50"
           >
@@ -53,8 +60,9 @@ export default function ShareForm({ className }: ShareFormProps) {
         </div>
       </div>
 
-      <div className="space-y-3">
-        <Button className="w-full" variant="default">
+      {/* Actions Section */}
+      <div className="flex gap-3">
+        <Button className="w-full" variant="outline">
           Customize Form
         </Button>
         <Button
@@ -67,6 +75,32 @@ export default function ShareForm({ className }: ShareFormProps) {
         </Button>
       </div>
 
+      {/* Secret Key Section */}
+      <div className="p-4 bg-gray-50 dark:bg-gray-900/20 rounded-lg border border-gray-100 dark:border-gray-800">
+        <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-2">
+          Your Secret API Key
+        </h3>
+        <p className="text-xs text-gray-600 dark:text-gray-400 mb-4">
+          Use this key to authenticate API requests for managing testimonials
+        </p>
+
+        <div className="flex gap-2">
+          <Input
+            value={secretKey}
+            readOnly
+            className="text-sm bg-white dark:bg-[#1F1F23] border-gray-200 dark:border-gray-800"
+          />
+          <Button
+            onClick={() => copyToClipboard(secretKey, setKeyCopied)}
+            variant="outline"
+            className="border-gray-200 dark:border-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900/50"
+          >
+            {keyCopied ? "Copied!" : <Copy className="h-4 w-4" />}
+          </Button>
+        </div>
+      </div>
+
+      {/* Embed Section */}
       <div className="pt-4 border-t border-gray-200 dark:border-gray-800">
         <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-2">
           Embed on your website
@@ -82,7 +116,7 @@ export default function ShareForm({ className }: ShareFormProps) {
           target="_blank"
           className="text-xs text-blue-500 dark:text-blue-400 mb-3"
         >
-          ReadMore
+          Read More
         </Link>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import { cn } from "../lib/utils";
 import { Star, Trash2, Eye } from "lucide-react";
 import { Button } from "../components/ui/button";
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 
 interface Testimonial {
   _id: string;
@@ -56,7 +56,13 @@ export default async function TestimonialList({
 }: TestimonialListProps) {
   const baseUrl = (await headers()).get("host");
   const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
-  const res = await fetch(`${protocol}://${baseUrl}/api/testimonials`);
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
+  const res = await fetch(`${protocol}://${baseUrl}/api/testimonials`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   if (!res.ok) {
     console.error("Failed to fetch testimonials:", res);
     return;
