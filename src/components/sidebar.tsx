@@ -2,15 +2,10 @@
 
 import type React from "react";
 import { usePathname } from "next/navigation";
-import Link from "next/link";
 import Image from "next/image";
 import { cn } from "../lib/utils";
 import {
-  FileText,
-  Upload,
   MessageSquare,
-  Search,
-  Tags,
   Info,
   Share2,
   MessageCircle,
@@ -20,6 +15,7 @@ import {
   Folder,
   Settings,
   LogOut,
+  MessageSquareQuote,
 } from "lucide-react";
 import { deleteCookie, getCookie } from "cookies-next";
 import { useEffect, useState } from "react";
@@ -52,7 +48,7 @@ const navigation: NavSection[] = [
     items: [
       { href: "/whats-new", icon: Info, label: "What's new" },
       { href: "/affiliate", icon: Share2, label: "Affiliate Program" },
-      { href: "/feedback", icon: MessageCircle, label: "Feedback" },
+      { href: "feedback", icon: MessageCircle, label: "Feedback" },
       { href: "/community", icon: Users, label: "Community" },
     ],
   },
@@ -62,22 +58,28 @@ function NavItem({
   href,
   icon: Icon,
   children,
+  classname,
   onClick,
 }: {
   href: string;
   icon: any;
+  classname?: string;
   onClick?: () => void;
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
   const isActive = pathname === href;
 
+  const handleClick = () => {
+    window.location.href = href;
+    if (onClick) onClick();
+  };
+
   return (
-    <Link
-      href={href}
-      onClick={onClick}
+    <div
+      onClick={handleClick}
       className={cn(
-        "flex items-center px-3 py-2 text-sm rounded-md transition-colors",
+        "flex items-center px-3 py-2 text-sm rounded-md transition-colors cursor-pointer",
         "hover:bg-gray-100 dark:hover:bg-gray-800/50",
         isActive
           ? "text-blue-600 dark:text-blue-400 font-semibold bg-gray-100 dark:bg-gray-800"
@@ -86,12 +88,12 @@ function NavItem({
     >
       <Icon
         className={cn(
-          "h-4 w-4 mr-3",
+          `h-4 w-4 mr-3 ${classname}`,
           isActive ? "text-blue-600 dark:text-blue-400" : ""
         )}
       />
       {children}
-    </Link>
+    </div>
   );
 }
 
@@ -118,8 +120,8 @@ export default function Sidebar() {
   }, []);
 
   return (
-    <div className="w-60  h-screen flex flex-col bg-[#f9fafb] dark:bg-[#1F1F23] dark:border-gray-800 border-r border-gray-200">
-      <div className=" border-gray-200 border-b dark:border-gray-800">
+    <div className="w-60 h-screen flex flex-col bg-[#f9fafb] dark:bg-[#1F1F23] dark:border-gray-800 border-r border-gray-200">
+      <div className="border-gray-200 border-b dark:border-gray-800">
         <div className="flex items-center gap-3 p-4">
           <Image
             src="/default.jpg"
@@ -151,27 +153,15 @@ export default function Sidebar() {
             </div>
             <nav className="space-y-1">
               {section.items.map((item) => {
-                const isActive = pathname === item.href;
                 return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={cn(
-                      "flex items-center gap-2 px-4 py-2 text-sm",
-                      "hover:bg-gray-100 dark:hover:bg-gray-800/50 rounded-lg",
-                      isActive
-                        ? "  bg-gray-200 dark:bg-gray-800"
-                        : "text-gray-700 dark:text-gray-300"
-                    )}
-                  >
-                    <item.icon className={cn("h-4 w-4")} />
-                    <span>{item.label}</span>
+                  <NavItem key={item.href} href={item.href} icon={item.icon}>
+                    {item.label}
                     {item.isNew && (
                       <div className="hidden sm:inline-block px-2 py-0.5 text-xs bg-gradient-to-r from-blue-400/20 to-purple-400/20 text-blue-500 rounded-full border border-blue-400/20 pointer-events-none">
                         New
                       </div>
                     )}
-                  </Link>
+                  </NavItem>
                 );
               })}
             </nav>
@@ -180,6 +170,9 @@ export default function Sidebar() {
       </div>
       <div className="px-4 py-4 border-t border-gray-200 dark:border-[#1F1F23]">
         <div className="space-y-1">
+          <NavItem href="/" icon={MessageSquareQuote} classname="text-primary">
+            TastyMonial
+          </NavItem>
           <NavItem href="/settings" icon={Settings}>
             Settings
           </NavItem>

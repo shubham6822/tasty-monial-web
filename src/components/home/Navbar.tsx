@@ -20,11 +20,11 @@ export default function Navbar() {
             Docs
           </Link>
           <Link href="/dashboard">
-            <Button variant="ghost">Dashboard</Button>
+            <Button variant="outline">Dashboard</Button>
           </Link>
-          <Link href="/login">
+          {/* <Link href="/login">
             <Button variant="outline">Login</Button>
-          </Link>
+          </Link> */}
         </div>
       </div>
     </header>

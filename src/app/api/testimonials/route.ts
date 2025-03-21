@@ -7,7 +7,6 @@ export async function POST(request: NextRequest) {
     await connectToDatabase();
     const body = await request.json();
     const { name, email, message, rating, userId } = body;
-    console.log("userId", userId);
 
     if (
       !name ||
