@@ -22,11 +22,15 @@ export default function Layout({ children }: LayoutProps) {
   }
 
   return (
-    <div className={`flex h-screen ${theme === "dark" ? "dark" : ""}`}>
-      <Sidebar />
-      <main className="flex-1 overflow-auto p-6 bg-white  dark:bg-[#0F0F12] pl-10">
-        {children}
-      </main>
-    </div>
+    <html lang="en" className="overflow-hidden">
+      <body className="overflow-x-hidden">
+        <div className={`flex h-screen ${theme === "dark" ? "dark" : ""}`}>
+          <Sidebar />
+          <main className="flex-1 overflow-auto p-6 bg-white  dark:bg-[#0F0F12] pl-10">
+            {children}
+          </main>
+        </div>
+      </body>
+    </html>
   );
 }
