@@ -26,16 +26,17 @@ import {
 } from "../../../../components/ui/select";
 
 const TeamOptions = [
-  { value: "none", label: "None" },
-  { value: "founder", label: "Founder" },
-  { value: "ceo", label: "CEO" },
-  { value: "leadership", label: "Leadership" },
-  { value: "developer", label: "Developer" },
-  { value: "designer", label: "Designer" },
-  { value: "marketing", label: "Marketing" },
-  { value: "sales", label: "Sales" },
-  { value: "support", label: "Support" },
-  { value: "other", label: "Other" },
+  { value: "None", label: "None" },
+  { value: "Founder", label: "Founder" },
+  { value: "CEO", label: "CEO" },
+  { value: "Freelancer", label: "Freelancer" },
+  { value: "Leadership", label: "Leadership" },
+  { value: "Developer", label: "Developer" },
+  { value: "Designer", label: "Designer" },
+  { value: "Marketing", label: "Marketing" },
+  { value: "Sales", label: "Sales" },
+  { value: "Support", label: "Support" },
+  { value: "Other", label: "Other" },
 ];
 
 export default function SubmitTestimonialPage({
@@ -154,7 +155,7 @@ export default function SubmitTestimonialPage({
             </div>
             <div className="grid gap-2">
               <Label htmlFor="company">Company</Label>
-              <Input id="company" placeholder="Ex. Senja" />
+              <Input id="company" placeholder="Ex. TastyMonial" />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="team">Team</Label>

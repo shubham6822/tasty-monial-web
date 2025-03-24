@@ -5,8 +5,14 @@ interface ITestimonial extends Document {
   message: string;
   email: string;
   rating: number;
-  createdAt: Date;
+  date: Date;
   userId: string;
+  title: string;
+  company: string;
+  socialLinks: string[];
+  image: string;
+  video: string;
+  profession: string;
 }
 
 const TestimonialSchema: Schema = new mongoose.Schema({
@@ -14,8 +20,14 @@ const TestimonialSchema: Schema = new mongoose.Schema({
   userId: { type: String, required: true },
   message: { type: String, required: true },
   rating: { type: Number, required: true, min: 1, max: 5 },
-  createdAt: { type: Date, default: Date.now },
+  date: { type: Date, default: Date.now },
   email: { type: String, required: true },
+  title: { type: String },
+  company: { type: String },
+  socialLinks: { type: [String], default: [] },
+  image: { type: String },
+  video: { type: String },
+  profession: { type: String },
 });
 
 const Testimonial =

@@ -90,8 +90,8 @@ export default function TestimonialsTable({
                   key={testimonial.id}
                   className="hover:bg-gray-50 dark:hover:bg-zinc-800/50"
                 >
-                  <Link href={`/testimonial/${testimonial.id}`}>
-                    <td className="px-4 py-4 whitespace-nowrap">
+                  <td className="px-4 py-4 whitespace-nowrap">
+                    <Link href={`/testimonial/${testimonial.id}`}>
                       <div className="flex flex-col">
                         <span className="text-sm font-medium text-gray-900 dark:text-white">
                           {testimonial.clientName}
@@ -102,13 +102,13 @@ export default function TestimonialsTable({
                           </span>
                         )}
                       </div>
-                    </td>
-                    <td className="px-4 py-4">
-                      <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
-                        {testimonial.message}
-                      </p>
-                    </td>
-                  </Link>
+                    </Link>
+                  </td>
+                  <td className="px-4 py-4">
+                    <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
+                      {testimonial.message}
+                    </p>
+                  </td>
                   <td className="px-4 py-4 whitespace-nowrap">
                     <div className="flex items-center">
                       {Array.from({ length: 5 }).map((_, i) => (

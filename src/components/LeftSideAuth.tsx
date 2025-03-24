@@ -21,7 +21,7 @@ export default function LeftSideAuth() {
         <div className="    w-full mt-10 justify-center flex flex-col gap-4">
           <div className="p-4 bg-[#2520E3] rounded-2xl ">
             <div className="flex flex-col rounded-lg">
-              <p className="mb-4 italic ">
+              <p className="mb-4  font-light">
                 As a freelance developer, I needed a simple way to collect
                 testimonials from clients. TastyMonial is exactly what I was
                 looking for - it took less than 5 minutes to set up!
