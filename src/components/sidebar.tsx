@@ -80,7 +80,7 @@ function NavItem({
       onClick={handleClick}
       className={cn(
         "flex items-center px-3 py-2 text-sm rounded-md transition-colors cursor-pointer",
-        "hover:bg-gray-100 dark:hover:bg-gray-800/50",
+        "hover:bg-gray-100 dark:hover:bg-gray-800/50 gap-2",
         isActive
           ? "text-blue-600 dark:text-blue-400 font-semibold bg-gray-100 dark:bg-gray-800"
           : "text-gray-600 dark:text-gray-300"
@@ -157,8 +157,8 @@ export default function Sidebar() {
                   <NavItem key={item.href} href={item.href} icon={item.icon}>
                     {item.label}
                     {item.isNew && (
-                      <div className="hidden sm:inline-block px-2 py-0.5 text-xs bg-gradient-to-r from-blue-400/20 to-purple-400/20 text-blue-500 rounded-full border border-blue-400/20 pointer-events-none">
-                        New
+                      <div className="hidden sm:inline-block px-2 py-0.5 text-xs bg-gradient-to-r from-blue-400/20 to-purple-400/20 text-blue-500 rounded-full border border-blue-400/20 pointer-events-none ">
+                        Coming Soon
                       </div>
                     )}
                   </NavItem>

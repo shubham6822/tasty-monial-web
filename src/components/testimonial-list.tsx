@@ -2,6 +2,7 @@ import { cn } from "../lib/utils";
 import { Star, Trash2, Eye } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { cookies, headers } from "next/headers";
+import Link from "next/link";
 
 interface Testimonial {
   _id: string;
@@ -71,7 +72,7 @@ export default async function TestimonialList({
 
   return (
     <div className={cn("space-y-4", className)}>
-      {testimonials.map((testimonial: Testimonial) => (
+      {testimonials.slice(0, 4).map((testimonial: Testimonial) => (
         <div
           key={testimonial._id}
           className="p-4 border-b border-gray-100 dark:border-gray-800  dark:hover:border-gray-700 transition-all duration-200"
@@ -103,14 +104,6 @@ export default async function TestimonialList({
                 <Eye className="h-4 w-4" />
                 <span className="sr-only">View</span>
               </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-8 w-8 text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/20"
-              >
-                <Trash2 className="h-4 w-4" />
-                <span className="sr-only">Delete</span>
-              </Button>
             </div>
           </div>
           <p className="text-gray-600 dark:text-gray-300 text-sm line-clamp-2">
@@ -118,10 +111,11 @@ export default async function TestimonialList({
           </p>
         </div>
       ))}
-
-      <Button className="w-full mt-4" variant="outline">
-        View All Testimonials
-      </Button>
+      <Link href="/testimonial">
+        <Button className="w-full mt-4" variant="outline">
+          View All Testimonials
+        </Button>
+      </Link>
     </div>
   );
 }

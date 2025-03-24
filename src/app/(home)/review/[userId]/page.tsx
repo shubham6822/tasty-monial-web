@@ -2,7 +2,7 @@
 
 import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { MessageSquareQuote, Star } from "lucide-react";
+import { MessageSquareQuote, SlidersHorizontal, Star } from "lucide-react";
 import {
   Card,
   CardHeader,
@@ -14,10 +14,29 @@ import {
 import { Textarea } from "../../../../components/ui/textarea";
 import { cn } from "../../../../lib/utils";
 import { Button } from "../../../../components/ui/button";
-import { ThemeToggle } from "../../../../components/theme-toggle";
 import { Label } from "../../../../components/ui/label";
 import { Input } from "../../../../components/ui/input";
 import Link from "next/link";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../../../../components/ui/select";
+
+const TeamOptions = [
+  { value: "none", label: "None" },
+  { value: "founder", label: "Founder" },
+  { value: "ceo", label: "CEO" },
+  { value: "leadership", label: "Leadership" },
+  { value: "developer", label: "Developer" },
+  { value: "designer", label: "Designer" },
+  { value: "marketing", label: "Marketing" },
+  { value: "sales", label: "Sales" },
+  { value: "support", label: "Support" },
+  { value: "other", label: "Other" },
+];
 
 export default function SubmitTestimonialPage({
   params,
@@ -29,6 +48,7 @@ export default function SubmitTestimonialPage({
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [rating, setRating] = useState(0);
   const [hoveredRating, setHoveredRating] = useState(0);
+  const [team, setTeam] = useState(TeamOptions[0].value);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -48,6 +68,19 @@ export default function SubmitTestimonialPage({
             .value,
           email:
             (e.currentTarget.elements.namedItem("email") as HTMLInputElement)
+              ?.value || "",
+          tagline:
+            (e.currentTarget.elements.namedItem("tagline") as HTMLInputElement)
+              ?.value || "",
+          company:
+            (e.currentTarget.elements.namedItem("company") as HTMLInputElement)
+              ?.value || "",
+          team: team,
+          url:
+            (e.currentTarget.elements.namedItem("url") as HTMLInputElement)
+              ?.value || "",
+          date:
+            (e.currentTarget.elements.namedItem("date") as HTMLInputElement)
               ?.value || "",
           message: (
             e.currentTarget.elements.namedItem("message") as HTMLTextAreaElement
@@ -112,8 +145,31 @@ export default function SubmitTestimonialPage({
               <Input id="name" placeholder="John Doe" required />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="email">Email (Optional)</Label>
+              <Label htmlFor="tagline">Tagline</Label>
+              <Input id="tagline" placeholder="Head of TastyMonial" />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="email">Email</Label>
               <Input id="email" type="email" placeholder="john@example.com" />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="company">Company</Label>
+              <Input id="company" placeholder="Ex. Senja" />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="team">Team</Label>
+              <Select value={team} onValueChange={(value) => setTeam(value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Status" />
+                </SelectTrigger>
+                <SelectContent>
+                  {TeamOptions.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             <div className="grid gap-2">
               <Label>Rating</Label>

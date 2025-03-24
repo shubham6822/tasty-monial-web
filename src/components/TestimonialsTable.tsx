@@ -13,12 +13,6 @@ import Link from "next/link";
 import { Badge } from "./ui/badge";
 import { cn } from "../lib/utils";
 import { Button } from "./ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
 import { Testimonial } from "./TestimonialsPage";
 
 interface TestimonialsTableProps {
@@ -96,23 +90,25 @@ export default function TestimonialsTable({
                   key={testimonial.id}
                   className="hover:bg-gray-50 dark:hover:bg-zinc-800/50"
                 >
-                  <td className="px-4 py-4 whitespace-nowrap">
-                    <div className="flex flex-col">
-                      <span className="text-sm font-medium text-gray-900 dark:text-white">
-                        {testimonial.clientName}
-                      </span>
-                      {testimonial.company && (
-                        <span className="text-xs text-gray-500 dark:text-gray-400">
-                          {testimonial.company}
+                  <Link href={`/testimonial/${testimonial.id}`}>
+                    <td className="px-4 py-4 whitespace-nowrap">
+                      <div className="flex flex-col">
+                        <span className="text-sm font-medium text-gray-900 dark:text-white">
+                          {testimonial.clientName}
                         </span>
-                      )}
-                    </div>
-                  </td>
-                  <td className="px-4 py-4">
-                    <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
-                      {testimonial.message}
-                    </p>
-                  </td>
+                        {testimonial.company && (
+                          <span className="text-xs text-gray-500 dark:text-gray-400">
+                            {testimonial.company}
+                          </span>
+                        )}
+                      </div>
+                    </td>
+                    <td className="px-4 py-4">
+                      <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
+                        {testimonial.message}
+                      </p>
+                    </td>
+                  </Link>
                   <td className="px-4 py-4 whitespace-nowrap">
                     <div className="flex items-center">
                       {Array.from({ length: 5 }).map((_, i) => (
