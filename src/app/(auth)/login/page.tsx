@@ -105,30 +105,25 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex  items-center justify-center bg-gray-50 dark:bg-[#0F0F12]">
+    <div className="min-h-screen min-w-screen flex">
       {/* <div className="absolute top-4 right-4">
         <ThemeToggle />
       </div> */}
       <div className="lg:w-2/5 h-screen">
-        <div className="p-4 h-full">
+        <div className="p-4 h-full hidden lg:block">
           <LeftSideAuth />
         </div>
       </div>
-      <div className="w-3/5">
-        <div className="bg-white dark:bg-[#1F1F23] p-8 rounded-xl shadow-sm border border-gray-200 dark:border-gray-800">
-          <div className="text-center mb-6">
-            <div className="flex justify-center mb-8">
-              <MessageSquareQuote className="h-6 w-6 text-primary" />
-            </div>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-              Welcome back
-            </h1>
+      <div className="lg:w-3/5 w-full flex items-center  justify-center">
+        <div className=" dark:bg-[#1F1F23] p-8 rounded-xl border-gray-200 dark:border-gray-800  w-full max-w-md">
+          <div className=" mb-6 py-10">
+            <h1 className="flex items-center fo  text-4xl font-bold">Log in</h1>
             <p className="text-gray-600 dark:text-gray-400 mt-1">
               Sign in to your account
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4 max-w-md">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -161,7 +156,11 @@ export default function LoginPage() {
 
             {error && <p className="text-red-500 text-sm">{error}</p>}
 
-            <Button type="submit" className="w-full" disabled={isLoading}>
+            <Button
+              type="submit"
+              className="w-full bg-[#3C37FD] text-white"
+              disabled={isLoading}
+            >
               {isLoading ? "Signing in..." : "Sign in"}
             </Button>
 

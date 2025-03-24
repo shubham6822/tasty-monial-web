@@ -12,6 +12,7 @@ import { MessageSquareQuote } from "lucide-react";
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../../../lib/firebase";
 import { setCookie } from "cookies-next";
+import LeftSideAuth from "../../../components/LeftSideAuth";
 
 export default function SignupPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -96,22 +97,24 @@ export default function SignupPage() {
     }
   };
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-[#0F0F12] p-4">
-      <div className="absolute top-4 right-4">
-        <ThemeToggle />
+    <div className="min-h-screen min-w-screen flex">
+      {/* <div className="absolute top-4 right-4">
+            <ThemeToggle />
+          </div> */}
+      <div className="lg:w-2/5 h-screen">
+        <div className="p-4 h-full hidden lg:block">
+          <LeftSideAuth />
+        </div>
       </div>
 
-      <div className="w-full max-w-md">
-        <div className="bg-white dark:bg-[#1F1F23] p-8 rounded-xl shadow-sm border border-gray-200 dark:border-gray-800">
-          <div className="flex justify-center mb-8">
-            <MessageSquareQuote className="h-6 w-6 text-primary" />
-          </div>
-          <div className="text-center mb-6">
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-              Create an account
+      <div className="lg:w-3/5 w-full flex items-center  justify-center">
+        <div className=" dark:bg-[#1F1F23] p-8 rounded-xl border-gray-200 dark:border-gray-800  w-full max-w-md">
+          <div className=" mb-6 py-10">
+            <h1 className="flex items-center fo  text-4xl font-bold">
+              Sign up
             </h1>
             <p className="text-gray-600 dark:text-gray-400 mt-1">
-              Start collecting testimonials today
+              Sign up to your account
             </p>
           </div>
 
@@ -152,7 +155,11 @@ export default function SignupPage() {
               </p>
             </div>
             {error && <p className="text-red-500  text-sm">{error}</p>}
-            <Button type="submit" className="w-full" disabled={isLoading}>
+            <Button
+              type="submit"
+              className="w-full bg-[#3C37FD] text-white"
+              disabled={isLoading}
+            >
               {isLoading ? "Creating account..." : "Create account"}
             </Button>
 
