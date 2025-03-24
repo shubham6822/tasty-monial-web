@@ -13,6 +13,7 @@ import { ThemeToggle } from "../../../components/theme-toggle";
 import { Label } from "../../../components/ui/label";
 import { Input } from "../../../components/ui/input";
 import { Button } from "../../../components/ui/button";
+import LeftSideAuth from "../../../components/LeftSideAuth";
 
 export default function LoginPage() {
   const { toast } = useToast();
@@ -104,12 +105,16 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-[#0F0F12] p-4">
-      <div className="absolute top-4 right-4">
+    <div className="min-h-screen flex  items-center justify-center bg-gray-50 dark:bg-[#0F0F12]">
+      {/* <div className="absolute top-4 right-4">
         <ThemeToggle />
+      </div> */}
+      <div className="lg:w-2/5 h-screen">
+        <div className="p-4 h-full">
+          <LeftSideAuth />
+        </div>
       </div>
-
-      <div className="w-full max-w-md">
+      <div className="w-3/5">
         <div className="bg-white dark:bg-[#1F1F23] p-8 rounded-xl shadow-sm border border-gray-200 dark:border-gray-800">
           <div className="text-center mb-6">
             <div className="flex justify-center mb-8">

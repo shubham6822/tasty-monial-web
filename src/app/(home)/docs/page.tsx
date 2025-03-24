@@ -795,7 +795,7 @@ Content-Type: application/json
 
       <div className="mt-12 flex justify-center">
         <Button asChild>
-          <Link href="/sign-up">Get Started with TastyMonial</Link>
+          <Link href="/signup">Get Started with TastyMonial</Link>
         </Button>
       </div>
     </div>
