@@ -20,7 +20,7 @@ import {
 import Image from "next/image";
 import { Button } from "../../../../components/ui/button";
 import { Badge } from "../../../../components/ui/badge";
-import { cn } from "../../../../lib/utils";
+import { cn, formatDate } from "../../../../lib/utils";
 import DeleteConfirmationModal from "../../../../components/modals/DeleteConfirmationModal";
 
 // Sample testimonial data - same as in testimonials-page.tsx
@@ -247,16 +247,6 @@ export default function TestimonialDetailPage({
     // For now, we'll just redirect back to the testimonials page
     setIsDeleteModalOpen(false);
     router.push("/testimonial");
-  };
-
-  // Format date to be more readable
-  const formatDate = (dateString: string) => {
-    const options: Intl.DateTimeFormatOptions = {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    };
-    return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
   // Status badge configuration

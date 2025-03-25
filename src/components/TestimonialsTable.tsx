@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "./ui/badge";
-import { cn } from "../lib/utils";
+import { cn, formatDate } from "../lib/utils";
 import { Button } from "./ui/button";
 import { Testimonial } from "./TestimonialsPage";
 
@@ -24,16 +24,6 @@ export default function TestimonialsTable({
   testimonials,
   onDelete,
 }: TestimonialsTableProps) {
-  // Format date to be more readable
-  const formatDate = (dateString: string) => {
-    const options: Intl.DateTimeFormatOptions = {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    };
-    return new Date(dateString).toLocaleDateString(undefined, options);
-  };
-
   // Status badge configuration
   const statusConfig = {
     published: {

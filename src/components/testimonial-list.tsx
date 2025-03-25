@@ -1,4 +1,4 @@
-import { cn } from "../lib/utils";
+import { cn, formatDate } from "../lib/utils";
 import { Star, Trash2, Eye } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { cookies, headers } from "next/headers";
@@ -95,15 +95,18 @@ export default async function TestimonialList({
                   />
                 ))}
                 <span className="ml-2 text-xs text-gray-500 dark:text-gray-400">
-                  {testimonial.date}
+                  {formatDate(testimonial.date)}
                 </span>
               </div>
             </div>
             <div className="flex space-x-2">
-              <Button variant="ghost" size="icon" className="h-8 w-8">
+              <Link
+                href={`/testimonial/${testimonial._id}`}
+                className="h-8 w-8"
+              >
                 <Eye className="h-4 w-4" />
                 <span className="sr-only">View</span>
-              </Button>
+              </Link>
             </div>
           </div>
           <p className="text-gray-600 dark:text-gray-300 text-sm line-clamp-2">

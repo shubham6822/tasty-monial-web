@@ -8,7 +8,8 @@ export async function POST(request: NextRequest) {
   try {
     await connectToDatabase();
     const body = await request.json();
-    const { name, email, message, rating, userId } = body;
+    const { name, email, message, rating, userId, title, company, profession } =
+      body;
 
     if (
       !name ||
@@ -28,6 +29,9 @@ export async function POST(request: NextRequest) {
       message,
       rating,
       userId,
+      title,
+      company,
+      profession,
     });
     return NextResponse.json(newTestimonial, { status: 201 });
   } catch (error) {

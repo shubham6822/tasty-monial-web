@@ -70,19 +70,13 @@ export default function SubmitTestimonialPage({
           email:
             (e.currentTarget.elements.namedItem("email") as HTMLInputElement)
               ?.value || "",
-          tagline:
+          title:
             (e.currentTarget.elements.namedItem("tagline") as HTMLInputElement)
               ?.value || "",
           company:
             (e.currentTarget.elements.namedItem("company") as HTMLInputElement)
               ?.value || "",
-          team: team,
-          url:
-            (e.currentTarget.elements.namedItem("url") as HTMLInputElement)
-              ?.value || "",
-          date:
-            (e.currentTarget.elements.namedItem("date") as HTMLInputElement)
-              ?.value || "",
+          profession: team,
           message: (
             e.currentTarget.elements.namedItem("message") as HTMLTextAreaElement
           ).value,
