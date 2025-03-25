@@ -6,7 +6,7 @@ interface ITestimonial extends Document {
   email: string;
   rating: number;
   date: Date;
-  userId: string;
+  projectId: mongoose.Types.ObjectId;
   title: string;
   company: string;
   socialLinks: string[];
@@ -17,7 +17,7 @@ interface ITestimonial extends Document {
 
 const TestimonialSchema: Schema = new mongoose.Schema({
   name: { type: String, required: true },
-  userId: { type: String, required: true },
+  projectId: { type: Schema.Types.ObjectId, ref: "Project", required: true },
   message: { type: String, required: true },
   rating: { type: Number, required: true, min: 1, max: 5 },
   date: { type: Date, default: Date.now },

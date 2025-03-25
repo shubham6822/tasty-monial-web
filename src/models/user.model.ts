@@ -8,6 +8,7 @@ export interface IUser {
   bio?: string;
   picture: string;
   location?: string;
+  projects: mongoose.Types.ObjectId[];
 }
 
 const UserSchema = new Schema(
@@ -19,6 +20,10 @@ const UserSchema = new Schema(
     bio: { type: String },
     picture: { type: String },
     location: { type: String },
+    projects: [
+      { type: Schema.Types.ObjectId, ref: "Project" },
+      { default: [] },
+    ],
   },
   { timestamps: true }
 );
