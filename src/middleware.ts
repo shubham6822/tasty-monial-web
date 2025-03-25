@@ -7,6 +7,7 @@ export function middleware(req: NextRequest) {
     "/signup",
     "/dashboard-light.png",
     "/docs",
+    "/icons/og-image.png",
   ];
   const token = req.cookies.get("token")?.value; // Read token from cookies
 

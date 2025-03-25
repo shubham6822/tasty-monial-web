@@ -5,9 +5,11 @@ export default function LeftSideAuth() {
   return (
     <div className="flex flex-col h-full p-10 bg-[#3c37ff] text-white rounded-xl ">
       <div className="flex flex-col justify-between h-full">
+        {/* top*/}
         <div>
           <h1 className="text-xl font-semibold"> TASTYMONIAL</h1>
         </div>
+        {/* middle */}
         <div className="text-6xl font-bold mt-36">
           <h2 className="pb-2">Start your </h2>
           <h2>journey with us</h2>
@@ -18,6 +20,7 @@ export default function LeftSideAuth() {
             </p>
           </div>
         </div>
+        {/* bottom */}
         <div className="    w-full mt-10 justify-center flex flex-col gap-4">
           <div className="p-4 bg-[#2520E3] rounded-2xl ">
             <div className="flex flex-col rounded-lg">
