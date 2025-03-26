@@ -21,6 +21,7 @@ import { deleteCookie, getCookie } from "cookies-next";
 import { useEffect, useState } from "react";
 import { IUser } from "../models/user.model";
 import api from "../lib/axiosInstance";
+import Link from "next/link";
 
 interface NavItem {
   href: string;
@@ -71,17 +72,12 @@ function NavItem({
   const pathname = usePathname();
   const isActive = pathname === href;
 
-  const handleClick = () => {
-    window.location.href = href;
-    if (onClick) onClick();
-  };
-
   return (
-    <div
-      onClick={handleClick}
+    <Link
+      href={href}
       className={cn(
         "flex items-center px-3 py-2 text-sm rounded-md transition-colors cursor-pointer",
-        "hover:bg-gray-100 dark:hover:bg-gray-800/50 gap-2",
+        "hover:bg-gray-100 dark:hover:bg-gray-800/50 ",
         isActive
           ? "text-blue-600 dark:text-blue-400 font-semibold bg-gray-100 dark:bg-gray-800"
           : "text-gray-600 dark:text-gray-300"
@@ -94,7 +90,7 @@ function NavItem({
         )}
       />
       {children}
-    </div>
+    </Link>
   );
 }
 

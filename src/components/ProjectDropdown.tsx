@@ -10,7 +10,7 @@ import {
 import { useGetProjects } from "../hooks/useProjectApi";
 
 export default function ProjectDropdown() {
-  const { projects } = useGetProjects();
+  const { data: projects } = useGetProjects();
   const [options, setOptions] = React.useState<IOption[]>([]);
   const [value, setValue] = React.useState("all");
 
@@ -19,14 +19,14 @@ export default function ProjectDropdown() {
       setOptions(
         projects.map((project) => ({ label: project.name, value: project._id }))
       );
-      setValue(projects[0]._id);
+      setValue(projects[0]?._id);
     }
   }, [projects]);
 
   return (
     <div>
       <Select value={value} onValueChange={setValue}>
-        <SelectTrigger className="w-[180px]">
+        <SelectTrigger className="w-[280px]">
           <SelectValue placeholder="Select a project" />
         </SelectTrigger>
         <SelectContent>

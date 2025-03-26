@@ -4,9 +4,10 @@ import ProjectCard from "../../../components/cards/ProjectCard";
 import { Button } from "../../../components/ui/button";
 import CreateAndEditProject from "../../../components/modals/CreateAndEditProject";
 import { useCreateProject, useGetProjects } from "../../../hooks/useProjectApi";
+import NoProjects from "../../../components/NoProject";
 
 export default function ProjectsPage() {
-  const { data: projects } = useGetProjects();
+  const { data: projects, isLoading } = useGetProjects();
   const createProjectMutation = useCreateProject();
 
   const [isCreateModalOpen, setIsCreateModalOpen] = React.useState(false);
@@ -21,8 +22,26 @@ export default function ProjectsPage() {
     setProjectForm({ name: "", description: "" });
   };
 
+  if (!isLoading) {
+    if (!projects || projects.length === 0) {
+      return (
+        <>
+          <h1 className="text-3xl  text-left flex items-center gap-3 justify-between  mb-4">
+            <div className=" items-center gap-1 text-2xl font-bold text-gray-900 dark:text-white">
+              <h1>Project</h1>
+              <p className="text-gray-500 dark:text-gray-400 text-sm font-normal">
+                Manage your projects here
+              </p>
+            </div>
+          </h1>
+          <NoProjects />
+        </>
+      );
+    }
+  }
+
   return (
-    <div className="">
+    <>
       <h1 className="text-3xl  text-left flex items-center gap-3 justify-between  ">
         <div className=" items-center gap-1 text-2xl font-bold text-gray-900 dark:text-white">
           <h1>Project</h1>
@@ -62,6 +81,6 @@ export default function ProjectsPage() {
         projectForm={projectForm}
         setProjectForm={setProjectForm}
       />
-    </div>
+    </>
   );
 }

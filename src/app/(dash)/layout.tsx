@@ -23,16 +23,12 @@ export default function Layout({ children }: LayoutProps) {
   }
 
   return (
-    <html lang="en" className="overflow-hidden">
-      <body className="overflow-hidden">
-        <div className={`flex h-screen ${theme === "dark" ? "dark" : ""}`}>
-          <Sidebar />
-          <main className="flex-1 overflow-auto pt-6 px-10 bg-white  dark:bg-[#0F0F12] ">
-            <Toaster />
-            {children}
-          </main>
-        </div>
-      </body>
-    </html>
+    <div className={`flex h-screen ${theme === "dark" ? "dark" : ""}`}>
+      <Sidebar />
+      <main className="flex-1 overflow-auto pt-6 px-10 bg-white  dark:bg-[#0F0F12] ">
+        <Toaster />
+        {children}
+      </main>
+    </div>
   );
 }
