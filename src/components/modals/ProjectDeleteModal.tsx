@@ -29,10 +29,11 @@ export default function ProjectDeleteModal({
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Delete Project</AlertDialogTitle>
-            <AlertDialogDescription>
-              Are you sure you want to delete &quot;{projectName?.name}
-              &quot;? This action cannot be undone and all associated
-              testimonials will be removed.
+            <AlertDialogDescription className="text-black">
+              Are you sure you want to delete{" "}
+              <span className="font-bold text-red-500">{projectName}</span> ?
+              This action cannot be undone and all associated testimonials will
+              be removed.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

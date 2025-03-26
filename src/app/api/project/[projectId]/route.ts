@@ -39,3 +39,31 @@ export async function PATCH(
     return NextResponse.json({ error: error }, { status: 500 });
   }
 }
+
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: { projectId: string } }
+) {
+  try {
+    const { projectId } = params;
+    const userId = decodeToken(req);
+    if (!userId) {
+      return NextResponse.json(
+        { error: "Unauthorized access" },
+        { status: 403 }
+      );
+    }
+
+    // Delete Project from the database
+    const project = await Project.findOneAndDelete({ _id: projectId });
+
+    if (!project) {
+      return NextResponse.json({ error: "Project not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(project, { status: 200 });
+  } catch (error) {
+    console.error("Error deleting Project:", error);
+    return NextResponse.json({ error: error }, { status: 500 });
+  }
+}
