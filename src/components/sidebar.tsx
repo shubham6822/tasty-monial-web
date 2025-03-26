@@ -20,6 +20,7 @@ import {
 import { deleteCookie, getCookie } from "cookies-next";
 import { useEffect, useState } from "react";
 import { IUser } from "../models/user.model";
+import api from "../lib/axiosInstance";
 
 interface NavItem {
   href: string;
@@ -101,18 +102,17 @@ export default function Sidebar() {
   const pathname = usePathname();
   const [user, setUser] = useState<IUser>();
   useEffect(() => {
-    const token = getCookie("token");
     const user = localStorage.getItem("user");
-    if (token && !user) {
-      fetch("/api/auth/me", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setUser(data.data);
-          localStorage.setItem("user", JSON.stringify(data.data));
+    if (!user) {
+      const res = api
+        .get("/api/auth/me")
+        .then((res) => {
+          setUser(res.data);
+          localStorage.setItem("user", JSON.stringify(res.data));
+          return res.data;
+        })
+        .catch((error) => {
+          console.error("Error fetching user:", error);
         });
     } else {
       setUser(JSON.parse(user || "{}"));
@@ -176,7 +176,14 @@ export default function Sidebar() {
           <NavItem href="/settings" icon={Settings}>
             Settings
           </NavItem>
-          <NavItem href="/" icon={LogOut} onClick={() => deleteCookie("token")}>
+          <NavItem
+            href="/"
+            icon={LogOut}
+            onClick={() => {
+              deleteCookie("token");
+              localStorage.clear();
+            }}
+          >
             LogOut
           </NavItem>
         </div>

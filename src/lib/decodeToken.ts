@@ -22,5 +22,5 @@ export function decodeToken(req: NextRequest) {
   if (!decodedToken || !decodedToken.id) {
     return null;
   }
-  return decodedToken.id;
+  return decodedToken.id as string;
 }

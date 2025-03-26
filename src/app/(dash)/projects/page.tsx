@@ -3,6 +3,9 @@ import React from "react";
 import ProjectCard from "../../../components/cards/ProjectCard";
 import { Button } from "../../../components/ui/button";
 import CreateAndEditProject from "../../../components/modals/CreateAndEditProject";
+import api from "../../../lib/axiosInstance";
+import { useToast } from "../../../components/ui/use-toast";
+import { AxiosError } from "axios";
 
 const projects = [
   {
@@ -37,8 +40,37 @@ export default function ProjectsPage() {
     name: "",
     description: "",
   });
-  const handleCreateProject = () => {
-    console.log("Create project");
+
+  const { toast } = useToast();
+
+  const handleCreateProject = async () => {
+    try {
+      const res = await api.post("/api/project", projectForm);
+      const response = await res.data;
+
+      if (!res) {
+        toast({
+          title: "Error creating Project",
+          description: "Failed to create Project",
+        });
+      }
+
+      if (response) {
+        toast({
+          title: "Project created successfully",
+          description: "Project has been created successfully",
+        });
+        setIsCreateModalOpen(false);
+        setProjectForm({ name: "", description: "" });
+      }
+    } catch (error: AxiosError) {
+      console.error("Error creating Project:", error);
+      toast({
+        title: "Error creating Project",
+        description: error?.message || "Failed to create Project",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
