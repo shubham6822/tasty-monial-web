@@ -25,9 +25,7 @@ export default function ProjectCard({
     name: name,
     description: description,
   });
-  const handleDeleteProject = () => {
-    console.log("Delete project");
-  };
+  const handleDeleteProject = () => {};
 
   const handleEditProject = () => {
     console.log("Edit project");

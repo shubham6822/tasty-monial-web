@@ -1,5 +1,5 @@
 "use client";
-import React, { use, useEffect } from "react";
+import React, { useEffect } from "react";
 import {
   Select,
   SelectContent,
@@ -8,7 +8,6 @@ import {
   SelectValue,
 } from "./ui/select";
 import { useGetProjects } from "../hooks/useProjectApi";
-import { set } from "mongoose";
 
 export default function ProjectDropdown() {
   const { projects } = useGetProjects();

@@ -3,46 +3,22 @@ import React from "react";
 import ProjectCard from "../../../components/cards/ProjectCard";
 import { Button } from "../../../components/ui/button";
 import CreateAndEditProject from "../../../components/modals/CreateAndEditProject";
-import api from "../../../lib/axiosInstance";
-import { useToast } from "../../../components/ui/use-toast";
-import { useGetProjects } from "../../../hooks/useProjectApi";
+import { useCreateProject, useGetProjects } from "../../../hooks/useProjectApi";
 
 export default function ProjectsPage() {
+  const { data: projects } = useGetProjects();
+  const createProjectMutation = useCreateProject();
+
   const [isCreateModalOpen, setIsCreateModalOpen] = React.useState(false);
   const [projectForm, setProjectForm] = React.useState({
     name: "",
     description: "",
   });
-  const { toast } = useToast();
-  const { projects } = useGetProjects();
+
   const handleCreateProject = async () => {
-    try {
-      const res = await api.post("/api/project", projectForm);
-      const response = await res.data;
-
-      if (!res) {
-        toast({
-          title: "Error creating Project",
-          description: "Failed to create Project",
-        });
-      }
-
-      if (response) {
-        toast({
-          title: "Project created successfully",
-          description: "Project has been created successfully",
-        });
-        setIsCreateModalOpen(false);
-        setProjectForm({ name: "", description: "" });
-      }
-    } catch (error) {
-      console.error("Error creating Project:", error);
-      toast({
-        title: "Error creating Project",
-        description: "Failed to create Project",
-        variant: "destructive",
-      });
-    }
+    await createProjectMutation.mutateAsync(projectForm);
+    setIsCreateModalOpen(false);
+    setProjectForm({ name: "", description: "" });
   };
 
   return (
