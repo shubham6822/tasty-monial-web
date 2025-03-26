@@ -3,66 +3,27 @@ import { Star, Trash2, Eye } from "lucide-react";
 import { Button } from "../components/ui/button";
 import Link from "next/link";
 import api from "../lib/axiosInstance";
-
-interface Testimonial {
-  _id: string;
-  name: string;
-  message: string;
-  date: string;
-  rating: number;
-}
+import { useGetTestimonials } from "../hooks/useTestimonialApi";
+import { Testimonial } from "../types/testimonial.type";
 
 interface TestimonialListProps {
-  testimonials?: Testimonial[];
   className?: string;
 }
 
-const TESTIMONIALS: Testimonial[] = [
-  {
-    id: "1",
-    clientName: "Sarah Johnson",
-    message:
-      "This product has completely transformed our workflow. The interface is intuitive and the support team is incredibly responsive.",
-    date: "Today, 2:45 PM",
-    rating: 5,
-  },
-  {
-    id: "2",
-    clientName: "Michael Chen",
-    message:
-      "I've tried many similar tools, but this one stands out for its simplicity and powerful features. Highly recommended for any development team.",
-    date: "Today, 9:00 AM",
-    rating: 4,
-  },
-  {
-    id: "3",
-    clientName: "Emily Rodriguez",
-    message:
-      "The API documentation is excellent and integration was seamless. Our team was up and running in less than a day.",
-    date: "Yesterday",
-    rating: 5,
-  },
-  {
-    id: "4",
-    clientName: "David Kim",
-    message:
-      "Great product with excellent performance. The only thing I'd improve is adding more customization options.",
-    date: "2 days ago",
-    rating: 4,
-  },
-];
-
 export default function TestimonialList({ className }: TestimonialListProps) {
-  // const res = await api.get("/api/testimonial");
-  // if (!res) {
-  //   console.error("Failed to fetch testimonials:", res);
-  //   return;
-  // }
-  // const testimonials = [];
+  const { data: testimonials } = useGetTestimonials();
+
+  if (testimonials?.length === 0) {
+    return (
+      <div className="flex justify-center items-center h-48">
+        No testimonials found
+      </div>
+    );
+  }
 
   return (
     <div className={cn("space-y-4", className)}>
-      {TESTIMONIALS.slice(0, 4).map((testimonial: Testimonial) => (
+      {testimonials?.slice(0, 4).map((testimonial: Testimonial) => (
         <div
           key={testimonial._id}
           className="p-4 border-b border-gray-100 dark:border-gray-800  dark:hover:border-gray-700 transition-all duration-200"
@@ -85,7 +46,7 @@ export default function TestimonialList({ className }: TestimonialListProps) {
                   />
                 ))}
                 <span className="ml-2 text-xs text-gray-500 dark:text-gray-400">
-                  {formatDate(testimonial.date)}
+                  {formatDate(testimonial.createdAt)}
                 </span>
               </div>
             </div>

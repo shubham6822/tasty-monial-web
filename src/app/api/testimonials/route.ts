@@ -8,8 +8,16 @@ export async function POST(request: NextRequest) {
   try {
     await connectToDatabase();
     const body = await request.json();
-    const { name, email, message, rating, userId, title, company, profession } =
-      body;
+    const {
+      name,
+      email,
+      message,
+      rating,
+      projectId,
+      title,
+      company,
+      profession,
+    } = body;
 
     if (
       !name ||
@@ -28,7 +36,7 @@ export async function POST(request: NextRequest) {
       email,
       message,
       rating,
-      userId,
+      projectId,
       title,
       company,
       profession,
