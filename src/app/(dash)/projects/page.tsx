@@ -45,7 +45,7 @@ export default function ProjectsPage() {
         {projects?.map((project, index) => (
           <ProjectCard
             key={index}
-            id={index.toString()}
+            id={project._id}
             name={project.name}
             description={project?.description}
             createdDate={project.createdAt || ""}

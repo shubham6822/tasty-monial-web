@@ -3,6 +3,7 @@ import React from "react";
 import ProjectDeleteModal from "../modals/ProjectDeleteModal";
 import CreateAndEditProject from "../modals/CreateAndEditProject";
 import { formatDate } from "../../lib/utils";
+import { useDeleteProject, useUpdateProject } from "../../hooks/useProjectApi";
 
 interface ProjectCardProps {
   id: string;
@@ -19,16 +20,27 @@ export default function ProjectCard({
   createdDate,
   totalTestimonial,
 }: ProjectCardProps) {
+  const editProjectMutation = useUpdateProject();
+  const deleteProjectMutation = useDeleteProject();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = React.useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = React.useState(false);
   const [projectForm, setProjectForm] = React.useState({
     name: name,
     description: description,
   });
-  const handleDeleteProject = () => {};
+  const handleDeleteProject = () => {
+    deleteProjectMutation.mutateAsync(id);
+    setIsDeleteModalOpen(false);
+  };
 
   const handleEditProject = () => {
-    console.log("Edit project");
+    editProjectMutation.mutateAsync({
+      _id: id,
+      name: projectForm.name,
+      description: projectForm.description,
+    });
+    setIsEditModalOpen(false);
+    setProjectForm({ name: "", description: "" });
   };
 
   return (

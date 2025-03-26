@@ -56,7 +56,7 @@ export function useUpdateProject() {
   const { toast } = useToast();
 
   return useMutation({
-    mutationFn: async (project: Project) => {
+    mutationFn: async (project: Partial<Project>) => {
       const res = await api.patch(`/api/project/${project._id}`, project);
       return res.data;
     },
