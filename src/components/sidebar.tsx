@@ -60,12 +60,10 @@ function NavItem({
   href,
   icon: Icon,
   children,
-  classname,
   onClick,
 }: {
   href: string;
   icon: any;
-  classname?: string;
   onClick?: () => void;
   children: React.ReactNode;
 }) {
@@ -75,9 +73,10 @@ function NavItem({
   return (
     <Link
       href={href}
+      onClick={onClick}
       className={cn(
-        "flex items-center px-3 py-2 text-sm rounded-md transition-colors cursor-pointer",
-        "hover:bg-gray-100 dark:hover:bg-gray-800/50 ",
+        "flex items-center px-3 py-2 text-sm rounded-md transition-colors",
+        "hover:bg-gray-100 dark:hover:bg-gray-800/50",
         isActive
           ? "text-blue-600 dark:text-blue-400 font-semibold bg-gray-100 dark:bg-gray-800"
           : "text-gray-600 dark:text-gray-300"
@@ -85,7 +84,7 @@ function NavItem({
     >
       <Icon
         className={cn(
-          `h-4 w-4 mr-3 ${classname}`,
+          "h-4 w-4 mr-3",
           isActive ? "text-blue-600 dark:text-blue-400" : ""
         )}
       />
@@ -149,15 +148,27 @@ export default function Sidebar() {
             </div>
             <nav className="space-y-1">
               {section.items.map((item) => {
+                const isActive = pathname === item.href;
                 return (
-                  <NavItem key={item.href} href={item.href} icon={item.icon}>
-                    {item.label}
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={cn(
+                      "flex items-center gap-2 px-4 py-2 text-sm",
+                      "hover:bg-gray-100 dark:hover:bg-gray-800/50 rounded-lg",
+                      isActive
+                        ? "  bg-gray-200 dark:bg-gray-800"
+                        : "text-gray-700 dark:text-gray-300"
+                    )}
+                  >
+                    <item.icon className={cn("h-4 w-4")} />
+                    <span>{item.label}</span>
                     {item.isNew && (
-                      <div className="hidden sm:inline-block px-2 py-0.5 text-xs bg-gradient-to-r from-blue-400/20 to-purple-400/20 text-blue-500 rounded-full border border-blue-400/20 pointer-events-none ">
+                      <div className="hidden sm:inline-block px-2 py-0.5 text-xs bg-gradient-to-r from-blue-400/20 to-purple-400/20 text-blue-500 rounded-full border border-blue-400/20 pointer-events-none">
                         Coming Soon
                       </div>
                     )}
-                  </NavItem>
+                  </Link>
                 );
               })}
             </nav>

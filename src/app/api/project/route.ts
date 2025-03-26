@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { decodeToken } from "../../../lib/decodeToken";
 import Project from "../../../models/project.model";
+import User from "../../../models/user.model";
 
 export async function POST(req: NextRequest) {
   try {
@@ -24,6 +25,14 @@ export async function POST(req: NextRequest) {
       description,
       userId,
     });
+
+    const user = await User.findByIdAndUpdate(
+      userId,
+      {
+        $push: { projects: project._id },
+      },
+      { new: true }
+    );
 
     return NextResponse.json(project, { status: 201 });
   } catch (error) {

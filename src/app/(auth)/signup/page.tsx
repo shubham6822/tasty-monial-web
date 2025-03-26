@@ -13,12 +13,13 @@ import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../../../lib/firebase";
 import { setCookie } from "cookies-next";
 import LeftSideAuth from "../../../components/LeftSideAuth";
+import { useToast } from "../../../components/ui/use-toast";
 
 export default function SignupPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | undefined>();
   const router = useRouter();
-
+  const { toast } = useToast();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
@@ -35,9 +36,10 @@ export default function SignupPage() {
       });
 
       if (res.ok) {
-        const user = await res.json();
-        setCookie("token", user.token);
-        router.push("/dashboard");
+        router.push("/login");
+        toast({
+          description: "Account created successfully! Please login.",
+        });
       } else {
         const error = await res.json();
         setError(error.error);
@@ -79,8 +81,10 @@ export default function SignupPage() {
         }
 
         if (res.status == 201) {
-          setCookie("token", await user.getIdToken());
-          router.push("/dashboard");
+          router.push("/login");
+          toast({
+            description: "Account created successfully! Please login.",
+          });
         }
       }
     } catch (error: any) {

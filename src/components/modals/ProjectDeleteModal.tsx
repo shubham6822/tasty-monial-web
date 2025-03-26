@@ -29,7 +29,7 @@ export default function ProjectDeleteModal({
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Delete Project</AlertDialogTitle>
-            <AlertDialogDescription className="text-black">
+            <AlertDialogDescription className="text-black dark:text-white">
               Are you sure you want to delete{" "}
               <span className="font-bold text-red-500">{projectName}</span> ?
               This action cannot be undone and all associated testimonials will

@@ -53,7 +53,7 @@ export default function ProjectsPage() {
 
       <div className=" w-full flex justify-end mb-4">
         <Button
-          className="bg-white text-primary border border-primary hover:border-primary hover:bg-primary hover:text-white"
+          className="bg-white text-primary border border-primary hover:border-primary hover:bg-primary hover:text-white dark:bg-[#1F1F23] dark:border-gray-800 dark:text-gray-300"
           onClick={() => setIsCreateModalOpen(true)}
         >
           New Project
