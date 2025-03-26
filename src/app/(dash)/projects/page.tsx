@@ -5,34 +5,7 @@ import { Button } from "../../../components/ui/button";
 import CreateAndEditProject from "../../../components/modals/CreateAndEditProject";
 import api from "../../../lib/axiosInstance";
 import { useToast } from "../../../components/ui/use-toast";
-import { AxiosError } from "axios";
-
-const projects = [
-  {
-    name: "Project 1",
-    description: "This is a description of project 1",
-    createdDate: "2021-09-20",
-    totalTestimonial: 10,
-  },
-  {
-    name: "Project 2",
-    description: "This is a description of project 2",
-    createdDate: "2021-09-20",
-    totalTestimonial: 20,
-  },
-  {
-    name: "Project 3",
-    description: "This is a description of project 3",
-    createdDate: "2021-09-20",
-    totalTestimonial: 30,
-  },
-  {
-    name: "Project 4",
-    description: "This is a description of project 4",
-    createdDate: "2021-09-20",
-    totalTestimonial: 40,
-  },
-];
+import { useGetProjects } from "../../../hooks/useProjectApi";
 
 export default function ProjectsPage() {
   const [isCreateModalOpen, setIsCreateModalOpen] = React.useState(false);
@@ -40,9 +13,8 @@ export default function ProjectsPage() {
     name: "",
     description: "",
   });
-
   const { toast } = useToast();
-
+  const { projects } = useGetProjects();
   const handleCreateProject = async () => {
     try {
       const res = await api.post("/api/project", projectForm);
@@ -63,11 +35,11 @@ export default function ProjectsPage() {
         setIsCreateModalOpen(false);
         setProjectForm({ name: "", description: "" });
       }
-    } catch (error: AxiosError) {
+    } catch (error) {
       console.error("Error creating Project:", error);
       toast({
         title: "Error creating Project",
-        description: error?.message || "Failed to create Project",
+        description: "Failed to create Project",
         variant: "destructive",
       });
     }
@@ -94,14 +66,14 @@ export default function ProjectsPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-1 gap-2">
-        {projects.map((project, index) => (
+        {projects?.map((project, index) => (
           <ProjectCard
             key={index}
             id={index.toString()}
             name={project.name}
-            description={project.description}
-            createdDate={project.createdDate}
-            totalTestimonial={project.totalTestimonial}
+            description={project?.description}
+            createdDate={project.createdAt || ""}
+            totalTestimonial={project.totalTestimonials || 0}
           />
         ))}
       </div>

@@ -107,8 +107,8 @@ export default function Sidebar() {
       const res = api
         .get("/api/auth/me")
         .then((res) => {
-          setUser(res.data);
-          localStorage.setItem("user", JSON.stringify(res.data));
+          setUser(res.data.data);
+          localStorage.setItem("user", JSON.stringify(res.data.data));
           return res.data;
         })
         .catch((error) => {

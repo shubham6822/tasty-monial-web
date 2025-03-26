@@ -2,6 +2,7 @@ import { EditIcon, Trash2 } from "lucide-react";
 import React from "react";
 import ProjectDeleteModal from "../modals/ProjectDeleteModal";
 import CreateAndEditProject from "../modals/CreateAndEditProject";
+import { formatDate } from "../../lib/utils";
 
 interface ProjectCardProps {
   id: string;
@@ -44,7 +45,7 @@ export default function ProjectCard({
               </p>
             </div>
             <div>
-              <p className="text-sm font-semibold text-primary opacity-">
+              <p className="text-sm font-semibold text-gray-500 opacity-">
                 Total Testimonial: {totalTestimonial}
               </p>
             </div>
@@ -60,9 +61,7 @@ export default function ProjectCard({
                 onClick={() => setIsDeleteModalOpen(true)}
               />
             </div>
-            <p className="text-sm  text-gray-500">
-              Created Date : {createdDate}
-            </p>
+            <p className="text-sm  text-gray-500">{formatDate(createdDate)}</p>
           </div>
         </div>
       </div>

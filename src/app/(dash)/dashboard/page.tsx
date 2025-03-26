@@ -3,18 +3,20 @@ import { ThemeToggle } from "../../../components/theme-toggle";
 import TestimonialStats from "../../../components/testimonial-stats";
 import TestimonialList from "../../../components/testimonial-list";
 import ShareForm from "../../../components/share-form";
+import ProjectDropdown from "../../../components/ProjectDropdown";
 
 export default function DashboardPage() {
   return (
     <div className="space-y-4">
-      <h1 className="text-3xl mb-6  text-left flex items-center gap-3 justify-between  ">
-        <div className=" items-center gap-1 text-2xl font-bold text-gray-900 dark:text-white">
+      <div className="text-3xl mb-6  text-left flex items-center gap-3 justify-between ">
+        <div className=" text-2xl font-bold text-gray-900 dark:text-white">
           <h1>Dashboard</h1>
           <p className="text-gray-500 dark:text-gray-400 text-sm font-normal">
             Your workspace for managing testimonials
           </p>
         </div>
-      </h1>
+        <ProjectDropdown />
+      </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-6 flex flex-col border border-gray-200 dark:border-[#1F1F23]">
           <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4 text-left flex items-center gap-2 ">
