@@ -1,11 +1,34 @@
+"use client";
 import { Home, MessageSquare, Share2, Users } from "lucide-react";
 import { ThemeToggle } from "../../../components/theme-toggle";
 import TestimonialStats from "../../../components/testimonial-stats";
 import TestimonialList from "../../../components/testimonial-list";
 import ShareForm from "../../../components/share-form";
 import ProjectDropdown from "../../../components/ProjectDropdown";
+import { useGetProjects } from "../../../hooks/useProjectApi";
+import NoProjects from "../../../components/NoProject";
 
 export default function DashboardPage() {
+  const { data: projects, isLoading } = useGetProjects();
+
+  if (!isLoading) {
+    if (!projects || projects.length === 0) {
+      return (
+        <>
+          <h1 className="text-3xl  text-left flex items-center gap-3 justify-between  mb-4">
+            <div className=" text-2xl font-bold text-gray-900 dark:text-white">
+              <h1>Dashboard</h1>
+              <p className="text-gray-500 dark:text-gray-400 text-sm font-normal">
+                Your workspace for managing testimonials
+              </p>
+            </div>
+          </h1>
+          <NoProjects />
+        </>
+      );
+    }
+  }
+
   return (
     <div className="space-y-4">
       <div className="text-3xl mb-6  text-left flex items-center gap-3 justify-between ">

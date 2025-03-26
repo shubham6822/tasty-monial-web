@@ -6,6 +6,7 @@ import { Button } from "./ui/button";
 import React from "react";
 import CreateAndEditProject from "./modals/CreateAndEditProject";
 import { useCreateProject } from "../hooks/useProjectApi";
+import { Project } from "../types/project.type";
 
 interface NoProjectsProps {
   className?: string;
@@ -21,7 +22,10 @@ export default function NoProjects({ className }: NoProjectsProps) {
   const createProjectMutation = useCreateProject();
 
   const onCreateProject = async () => {
-    await createProjectMutation.mutateAsync(projectForm);
+    const res = (await createProjectMutation.mutateAsync(
+      projectForm
+    )) as Project;
+    localStorage.setItem("projectId", res._id);
     setIsCreateModalOpen(false);
     setProjectForm({ name: "", description: "" });
   };

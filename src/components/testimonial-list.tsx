@@ -1,8 +1,8 @@
 import { cn, formatDate } from "../lib/utils";
 import { Star, Trash2, Eye } from "lucide-react";
 import { Button } from "../components/ui/button";
-import { cookies, headers } from "next/headers";
 import Link from "next/link";
+import api from "../lib/axiosInstance";
 
 interface Testimonial {
   _id: string;
@@ -52,27 +52,17 @@ const TESTIMONIALS: Testimonial[] = [
   },
 ];
 
-export default async function TestimonialList({
-  className,
-}: TestimonialListProps) {
-  const baseUrl = (await headers()).get("host");
-  const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
-  const cookieStore = await cookies();
-  const token = cookieStore.get("token")?.value;
-  const res = await fetch(`${protocol}://${baseUrl}/api/testimonials`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  if (!res.ok) {
-    console.error("Failed to fetch testimonials:", res);
-    return;
-  }
-  const testimonials = await res.json();
+export default function TestimonialList({ className }: TestimonialListProps) {
+  // const res = await api.get("/api/testimonial");
+  // if (!res) {
+  //   console.error("Failed to fetch testimonials:", res);
+  //   return;
+  // }
+  // const testimonials = [];
 
   return (
     <div className={cn("space-y-4", className)}>
-      {testimonials.slice(0, 4).map((testimonial: Testimonial) => (
+      {TESTIMONIALS.slice(0, 4).map((testimonial: Testimonial) => (
         <div
           key={testimonial._id}
           className="p-4 border-b border-gray-100 dark:border-gray-800  dark:hover:border-gray-700 transition-all duration-200"
