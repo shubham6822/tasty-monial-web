@@ -4,26 +4,35 @@ import { cn } from "../lib/utils";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Copy, ExternalLink, Key } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { IUser } from "../models/user.model";
 import { getCookie } from "cookies-next";
+import { useGetProjects } from "../hooks/useProjectApi";
+import { Project } from "../types/project.type";
+import { useProjectContext } from "../context/ProjectContext";
 
 interface ShareFormProps {
   className?: string;
 }
 
 export default function ShareForm({ className }: ShareFormProps) {
+  const router = useRouter();
+  const { project } = useProjectContext();
+
   const [copied, setCopied] = useState(false);
   const [keyCopied, setKeyCopied] = useState(false);
-  const router = useRouter();
-  const [user, setuser] = useState<IUser>(
-    JSON.parse(localStorage.getItem("user") || "{}")
-  );
 
-  const formLink = `${window.location.origin}/review/${user._id}`;
-  const secretKey = getCookie("token") || "your-secret-key";
+  const formLink = `${window.location.origin}/review/${encodeURI(
+    project?.name
+  )}/${project?.id}`;
+  const secretKey = (
+    typeof getCookie("token") === "string"
+      ? getCookie("token")
+      : "your-secret-key"
+  ) as string;
+
   const copyToClipboard = (
     text: string,
     setCopyState: (value: boolean) => void

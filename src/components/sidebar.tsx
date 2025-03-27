@@ -102,9 +102,10 @@ export default function Sidebar() {
       const res = api
         .get("/api/auth/me")
         .then((res) => {
-          setUser(res.data.data);
-          localStorage.setItem("user", JSON.stringify(res.data.data));
-          return res.data;
+          const userData = res.data as { data: IUser }; // Explicitly type res.data
+          setUser(userData.data);
+          localStorage.setItem("user", JSON.stringify(userData.data));
+          return userData;
         })
         .catch((error) => {
           console.error("Error fetching user:", error);
@@ -177,7 +178,7 @@ export default function Sidebar() {
       </div>
       <div className="px-4 py-4 border-t border-gray-200 dark:border-[#1F1F23]">
         <div className="space-y-1">
-          <NavItem href="/" icon={MessageSquareQuote} classname="text-primary">
+          <NavItem href="/" icon={MessageSquareQuote}>
             TastyMonial
           </NavItem>
           <NavItem href="/settings" icon={Settings}>

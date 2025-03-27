@@ -7,6 +7,7 @@ import React from "react";
 import CreateAndEditProject from "./modals/CreateAndEditProject";
 import { useCreateProject } from "../hooks/useProjectApi";
 import { Project } from "../types/project.type";
+import { useProjectContext } from "../context/ProjectContext";
 
 interface NoProjectsProps {
   className?: string;
@@ -14,6 +15,7 @@ interface NoProjectsProps {
 
 export default function NoProjects({ className }: NoProjectsProps) {
   const [isCreateModalOpen, setIsCreateModalOpen] = React.useState(false);
+  const { setProject } = useProjectContext();
   const [projectForm, setProjectForm] = React.useState({
     name: "",
     description: "",
@@ -25,7 +27,7 @@ export default function NoProjects({ className }: NoProjectsProps) {
     const res = (await createProjectMutation.mutateAsync(
       projectForm
     )) as Project;
-    localStorage.setItem("projectId", res._id);
+    setProject(res._id);
     setIsCreateModalOpen(false);
     setProjectForm({ name: "", description: "" });
   };
