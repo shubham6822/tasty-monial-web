@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { decodeToken } from "../../../../lib/decodeToken";
 import Project from "../../../../models/project.model";
+import { connectToDatabase } from "../../../../lib/mongoose";
 
 export async function PATCH(
   req: NextRequest,
@@ -15,6 +16,7 @@ export async function PATCH(
         { status: 403 }
       );
     }
+    await connectToDatabase();
     const body = await req.json();
     const { name, description } = body;
 
@@ -53,7 +55,7 @@ export async function DELETE(
         { status: 403 }
       );
     }
-
+    await connectToDatabase();
     // Delete Project from the database
     const project = await Project.findOneAndDelete({ _id: projectId });
 

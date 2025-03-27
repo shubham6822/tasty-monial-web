@@ -120,7 +120,7 @@ export default function Sidebar() {
       <div className="border-gray-200 border-b dark:border-gray-800">
         <div className="flex items-center gap-3 p-4">
           <Image
-            src={user?.picture}
+            src={user?.picture || "/default.jpg"}
             alt="Avatar"
             width={32}
             height={32}

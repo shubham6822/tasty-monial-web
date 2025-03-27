@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { decodeToken } from "../../../lib/decodeToken";
 import Project from "../../../models/project.model";
 import User from "../../../models/user.model";
+import { connectToDatabase } from "../../../lib/mongoose";
 
 export async function POST(req: NextRequest) {
   try {
@@ -12,6 +13,8 @@ export async function POST(req: NextRequest) {
         { status: 403 }
       );
     }
+    await connectToDatabase();
+
     const body = await req.json();
     const { name, description } = body;
 
@@ -44,12 +47,14 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   try {
     const userId = decodeToken(req);
+
     if (!userId) {
       return NextResponse.json(
         { error: "Unauthorized access" },
         { status: 403 }
       );
     }
+    await connectToDatabase();
 
     // Fetch all Projects from the database
     const projects = await Project.find({ userId: userId });
