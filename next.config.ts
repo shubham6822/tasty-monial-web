@@ -3,6 +3,9 @@ import path from "path";
 
 const nextConfig: NextConfig = {
   reactStrictMode: false,
+  images: {
+    domains: ["lh3.googleusercontent.com"],
+  },
   typescript: {
     ignoreBuildErrors: true,
   },
