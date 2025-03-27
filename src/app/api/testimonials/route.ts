@@ -61,7 +61,10 @@ export async function GET(req: NextRequest) {
         { status: 403 }
       );
     }
-    const testimonials = await Testimonial.find({ userId: userId });
+    const url = new URL(req.url);
+    const projectId = url.searchParams.get("projectId");
+
+    const testimonials = await Testimonial.find({ projectId: projectId });
 
     return NextResponse.json(testimonials, { status: 200 });
   } catch (error) {

@@ -1,8 +1,8 @@
 import axios from "axios";
-import { getCookie } from "cookies-next";
+import { getCookie, setCookie } from "cookies-next";
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000/",
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
@@ -28,9 +28,12 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    if (error.response?.status === 403) {
       console.error("Unauthorized! Redirecting to login...");
-      // Handle logout or redirection if needed
+      // Redirect to login page
+      localStorage.clear();
+      setCookie("token", "", { expires: new Date(0) });
+      window.location.href = "/login";
     }
     return Promise.reject(error);
   }

@@ -14,6 +14,7 @@ import { Badge } from "./ui/badge";
 import { cn, formatDate } from "../lib/utils";
 import { Button } from "./ui/button";
 import { Testimonial } from "./TestimonialsPage";
+import { useGetTestimonials } from "../hooks/useTestimonialApi";
 
 interface TestimonialsTableProps {
   testimonials: Testimonial[];
@@ -24,27 +25,6 @@ export default function TestimonialsTable({
   testimonials,
   onDelete,
 }: TestimonialsTableProps) {
-  // Status badge configuration
-  const statusConfig = {
-    published: {
-      label: "Published",
-      icon: Check,
-      className:
-        "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400",
-    },
-    pending: {
-      label: "Pending",
-      icon: Clock,
-      className:
-        "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400",
-    },
-    rejected: {
-      label: "Rejected",
-      icon: X,
-      className: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400",
-    },
-  };
-
   return (
     <div className="overflow-x-auto">
       <table className="w-full border-collapse">
@@ -217,3 +197,23 @@ export default function TestimonialsTable({
     </div>
   );
 }
+
+const statusConfig = {
+  published: {
+    label: "Published",
+    icon: Check,
+    className:
+      "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400",
+  },
+  pending: {
+    label: "Pending",
+    icon: Clock,
+    className:
+      "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400",
+  },
+  rejected: {
+    label: "Rejected",
+    icon: X,
+    className: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400",
+  },
+};

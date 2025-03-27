@@ -4,7 +4,7 @@ export type Testimonial = {
   message: string;
   email: string;
   rating: number;
-  date: Date;
+  date: string;
   projectId: string;
   title: string;
   company: string;

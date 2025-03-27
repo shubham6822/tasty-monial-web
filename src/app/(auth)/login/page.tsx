@@ -84,11 +84,11 @@ export default function LoginPage() {
         if (res.ok) {
           const response = await res.json();
           setCookie("token", response.data);
-          router.push("/dashboard");
         } else {
           const error = await res.json();
           setError(error.error);
         }
+        router.push("/dashboard");
       }
     } catch (error: any) {
       if (error.code === "auth/popup-blocked") {

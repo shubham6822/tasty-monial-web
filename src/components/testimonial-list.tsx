@@ -5,13 +5,17 @@ import Link from "next/link";
 import api from "../lib/axiosInstance";
 import { useGetTestimonials } from "../hooks/useTestimonialApi";
 import { Testimonial } from "../types/testimonial.type";
+import { useGetProjects } from "../hooks/useProjectApi";
+import { useProjectContext } from "../context/ProjectContext";
 
 interface TestimonialListProps {
   className?: string;
 }
 
 export default function TestimonialList({ className }: TestimonialListProps) {
-  const { data: testimonials } = useGetTestimonials();
+  const { project } = useProjectContext();
+
+  const { data: testimonials } = useGetTestimonials(project?.id);
 
   if (testimonials?.length === 0) {
     return (
@@ -46,7 +50,7 @@ export default function TestimonialList({ className }: TestimonialListProps) {
                   />
                 ))}
                 <span className="ml-2 text-xs text-gray-500 dark:text-gray-400">
-                  {formatDate(testimonial.createdAt)}
+                  {formatDate(testimonial.date)}
                 </span>
               </div>
             </div>

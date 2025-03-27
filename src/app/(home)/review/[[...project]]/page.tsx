@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, FormEvent } from "react";
-import { useRouter } from "next/navigation";
-import { MessageSquareQuote, SlidersHorizontal, Star } from "lucide-react";
+import { MessageSquareQuote, Star } from "lucide-react";
 import {
   Card,
   CardHeader,
@@ -24,6 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../../../components/ui/select";
+import { useCreateTestimonial } from "../../../../hooks/useTestimonialApi";
 
 const TeamOptions = [
   { value: "None", label: "None" },
@@ -42,59 +42,48 @@ const TeamOptions = [
 export default function SubmitTestimonialPage({
   params,
 }: {
-  params: { userId: string };
+  params: { project: string[] };
 }) {
-  const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [rating, setRating] = useState(0);
   const [hoveredRating, setHoveredRating] = useState(0);
   const [team, setTeam] = useState(TeamOptions[0].value);
 
+  const createTestimonial = useCreateTestimonial();
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (rating === 0) return;
 
     setIsSubmitting(true);
-
-    // Simulate API call
-    try {
-      const res = await fetch("/api/testimonials", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: (e.currentTarget.elements.namedItem("name") as HTMLInputElement)
-            .value,
-          email:
-            (e.currentTarget.elements.namedItem("email") as HTMLInputElement)
-              ?.value || "",
-          title:
-            (e.currentTarget.elements.namedItem("tagline") as HTMLInputElement)
-              ?.value || "",
-          company:
-            (e.currentTarget.elements.namedItem("company") as HTMLInputElement)
-              ?.value || "",
-          profession: team,
-          message: (
-            e.currentTarget.elements.namedItem("message") as HTMLTextAreaElement
-          ).value,
-          userId: params.userId,
-          rating,
-        }),
+    const body = {
+      name: (e.currentTarget.elements.namedItem("name") as HTMLInputElement)
+        .value,
+      tagline: (
+        e.currentTarget.elements.namedItem("tagline") as HTMLInputElement
+      ).value,
+      email: (e.currentTarget.elements.namedItem("email") as HTMLInputElement)
+        .value,
+      company: (
+        e.currentTarget.elements.namedItem("company") as HTMLInputElement
+      ).value,
+      team: team,
+      rating: rating,
+      message: (
+        e.currentTarget.elements.namedItem("message") as HTMLTextAreaElement
+      ).value,
+      projectId: params?.project[1],
+    };
+    createTestimonial
+      .mutateAsync(body)
+      .then(() => {
+        setIsSubmitting(false);
+        setIsSubmitted(true);
+      })
+      .catch(() => {
+        setIsSubmitting(false);
       });
-
-      if (!res.ok) {
-        console.error("Failed to submit testimonial:", res);
-        return;
-      }
-
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-    } catch (error) {
-      console.error("Error submitting testimonial:", error);
-    }
   };
 
   if (isSubmitted) {

@@ -5,13 +5,15 @@ import api from "../lib/axiosInstance";
 import { Testimonial } from "../types/testimonial.type";
 
 // Fetch Testimonials
-export function useGetTestimonials() {
+export function useGetTestimonials(projectId?: string) {
   const { toast } = useToast();
 
   return useQuery<Testimonial[]>({
-    queryKey: ["testimonial"],
+    queryKey: ["testimonial", projectId],
     queryFn: async (): Promise<Testimonial[]> => {
-      const res = await api.get<Testimonial[]>("/api/testimonials");
+      const res = await api.get<Testimonial[]>(
+        `/api/testimonials?projectId=${projectId}`
+      );
       if (!res) {
         toast({
           title: "Error fetching Testimonials",
@@ -21,6 +23,7 @@ export function useGetTestimonials() {
       }
       return res.data;
     },
+    enabled: !!projectId,
   });
 }
 
@@ -30,21 +33,26 @@ export function useCreateTestimonial() {
   const { toast } = useToast();
 
   return useMutation({
-    mutationFn: async (project: Partial<Testimonial>) => {
-      const res = await api.post("/api/testimonials", project);
-      return res.data;
+    mutationFn: async (testimonial: Partial<Testimonial>) => {
+      const res = await fetch("/api/testimonials", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(testimonial),
+      });
+      const data = await res.json();
+      return data;
     },
     onSuccess: () => {
       toast({
-        title: "Project created successfully",
-        description: "Project created successfully",
+        title: "Thank you for your feedback",
       });
       queryClient.invalidateQueries({ queryKey: ["testimonial"] });
     },
     onError: (error: any) => {
       toast({
-        title: "Error creating Project",
-        description: error.message || "An unexpected error occurred",
+        title: "Something went wrong",
         variant: "destructive",
       });
     },
