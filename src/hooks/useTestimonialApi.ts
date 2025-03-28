@@ -3,17 +3,20 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "../components/ui/use-toast";
 import api from "../lib/axiosInstance";
 import { Testimonial } from "../types/testimonial.type";
+import { useGetProjectById } from "./useProjectApi";
 
 // Fetch Testimonials
-export function useGetTestimonials(projectId?: string) {
+export function useGetTestimonials(projectId: string) {
   const { toast } = useToast();
-
+  const { data: projectData } = useGetProjectById(projectId);
   return useQuery<Testimonial[]>({
     queryKey: ["testimonial", projectId],
     queryFn: async (): Promise<Testimonial[]> => {
-      const res = await api.get<Testimonial[]>(
-        `/api/testimonials?projectId=${projectId}`
-      );
+      const res = await api.get<Testimonial[]>(`/api/testimonials`, {
+        headers: {
+          "secret-key": projectData?.projectKey,
+        },
+      });
       if (!res) {
         toast({
           title: "Error fetching Testimonials",
@@ -23,7 +26,7 @@ export function useGetTestimonials(projectId?: string) {
       }
       return res.data;
     },
-    enabled: !!projectId,
+    enabled: !!projectId && !!projectData,
   });
 }
 

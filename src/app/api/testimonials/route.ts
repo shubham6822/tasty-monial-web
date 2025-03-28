@@ -1,8 +1,7 @@
-import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "../../../lib/mongoose";
 import Testimonial from "../../../models/testimonial.model";
-import { decodeToken } from "../../../lib/decodeToken";
+import CryptoJS from "crypto-js";
 
 export async function POST(request: NextRequest) {
   try {
@@ -54,16 +53,24 @@ export async function POST(request: NextRequest) {
 export async function GET(req: NextRequest) {
   try {
     await connectToDatabase();
-    const userId = decodeToken(req);
-    if (!userId) {
+    const key = await req.headers.get("secret-key");
+
+    if (!key) {
       return NextResponse.json(
-        { error: "Unauthorized access" },
-        { status: 403 }
+        { error: "Secret key is missing" },
+        { status: 400 }
       );
     }
-    const url = new URL(req.url);
-    const projectId = url.searchParams.get("projectId");
 
+    if (!process.env.SECRET_KEY) {
+      return NextResponse.json(
+        { error: "Secret key env  is missing" },
+        { status: 500 }
+      );
+    }
+
+    const bytes = CryptoJS.AES.decrypt(key, process.env.SECRET_KEY);
+    const projectId = bytes.toString(CryptoJS.enc.Utf8);
     const testimonials = await Testimonial.find({ projectId: projectId });
 
     return NextResponse.json(testimonials, { status: 200 });

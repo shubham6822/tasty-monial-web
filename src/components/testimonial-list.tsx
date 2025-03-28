@@ -1,11 +1,9 @@
 import { cn, formatDate } from "../lib/utils";
-import { Star, Trash2, Eye } from "lucide-react";
+import { Star, Eye } from "lucide-react";
 import { Button } from "../components/ui/button";
 import Link from "next/link";
-import api from "../lib/axiosInstance";
 import { useGetTestimonials } from "../hooks/useTestimonialApi";
 import { Testimonial } from "../types/testimonial.type";
-import { useGetProjects } from "../hooks/useProjectApi";
 import { useProjectContext } from "../context/ProjectContext";
 
 interface TestimonialListProps {

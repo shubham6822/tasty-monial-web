@@ -6,4 +6,5 @@ export type Project = {
   updatedAt?: string;
   createdAt?: string;
   totalTestimonials?: number;
+  projectKey?: string;
 };

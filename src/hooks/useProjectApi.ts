@@ -24,6 +24,26 @@ export function useGetProjects() {
   });
 }
 
+export function useGetProjectById(projectId: string) {
+  const { toast } = useToast();
+
+  return useQuery<Project>({
+    queryKey: ["project", projectId],
+    queryFn: async (): Promise<Project> => {
+      const res = await api.get<Project>(`/api/project/${projectId}`);
+      if (!res) {
+        toast({
+          title: "Error fetching Project",
+          description: "Failed to fetch Project",
+          variant: "destructive",
+        });
+      }
+      return res.data;
+    },
+    enabled: !!projectId,
+  });
+}
+
 // Create Project
 export function useCreateProject() {
   const queryClient = useQueryClient();

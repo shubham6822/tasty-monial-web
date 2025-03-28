@@ -3,6 +3,7 @@ import { decodeToken } from "../../../lib/decodeToken";
 import Project from "../../../models/project.model";
 import User from "../../../models/user.model";
 import { connectToDatabase } from "../../../lib/mongoose";
+import CryptoJS from "crypto-js";
 
 export async function POST(req: NextRequest) {
   try {
@@ -13,6 +14,7 @@ export async function POST(req: NextRequest) {
         { status: 403 }
       );
     }
+
     await connectToDatabase();
 
     const body = await req.json();
@@ -29,6 +31,30 @@ export async function POST(req: NextRequest) {
       userId,
     });
 
+    if (!process.env.SECRET_KEY) {
+      return NextResponse.json(
+        { error: "Secret key env  is missing" },
+        { status: 500 }
+      );
+    }
+
+    // Encrypt the Project ID using the secret key
+    const bytes = CryptoJS.AES.encrypt(
+      project._id.toString(), // Convert ObjectId to string
+      process.env.SECRET_KEY
+    );
+    const encryptedProjectId = bytes.toString();
+
+    // Update the Project with the encrypted Project ID
+    await Project.findByIdAndUpdate(
+      project._id,
+      {
+        $set: { projectKey: encryptedProjectId },
+      },
+      { new: true }
+    );
+
+    // Update the User with the Project
     const user = await User.findByIdAndUpdate(
       userId,
       {
@@ -54,6 +80,7 @@ export async function GET(req: NextRequest) {
         { status: 403 }
       );
     }
+
     await connectToDatabase();
 
     // Fetch all Projects from the database

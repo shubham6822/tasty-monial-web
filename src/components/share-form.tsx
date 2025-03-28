@@ -3,14 +3,12 @@
 import { cn } from "../lib/utils";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
-import { Copy, ExternalLink, Key } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Copy, ExternalLink } from "lucide-react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { IUser } from "../models/user.model";
 import { getCookie } from "cookies-next";
-import { useGetProjects } from "../hooks/useProjectApi";
-import { Project } from "../types/project.type";
+import { useGetProjectById } from "../hooks/useProjectApi";
 import { useProjectContext } from "../context/ProjectContext";
 
 interface ShareFormProps {
@@ -20,6 +18,7 @@ interface ShareFormProps {
 export default function ShareForm({ className }: ShareFormProps) {
   const router = useRouter();
   const { project } = useProjectContext();
+  const { data: projectData } = useGetProjectById(project?.id);
 
   const [copied, setCopied] = useState(false);
   const [keyCopied, setKeyCopied] = useState(false);
@@ -27,11 +26,6 @@ export default function ShareForm({ className }: ShareFormProps) {
   const formLink = `${window.location.origin}/review/${encodeURI(
     project?.name
   )}/${project?.id}`;
-  const secretKey = (
-    typeof getCookie("token") === "string"
-      ? getCookie("token")
-      : "your-secret-key"
-  ) as string;
 
   const copyToClipboard = (
     text: string,
@@ -95,12 +89,14 @@ export default function ShareForm({ className }: ShareFormProps) {
 
         <div className="flex gap-2">
           <Input
-            value={secretKey}
+            value={projectData?.projectKey}
             readOnly
             className="text-sm bg-white dark:bg-[#1F1F23] border-gray-200 dark:border-gray-800"
           />
           <Button
-            onClick={() => copyToClipboard(secretKey, setKeyCopied)}
+            onClick={() =>
+              copyToClipboard(projectData?.projectKey || "", setKeyCopied)
+            }
             variant="outline"
             className="border-gray-200 dark:border-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900/50"
           >
