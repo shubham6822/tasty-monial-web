@@ -60,15 +60,14 @@ export default function SubmitTestimonialPage({
     const body = {
       name: (e.currentTarget.elements.namedItem("name") as HTMLInputElement)
         .value,
-      tagline: (
-        e.currentTarget.elements.namedItem("tagline") as HTMLInputElement
-      ).value,
+      title: (e.currentTarget.elements.namedItem("tagline") as HTMLInputElement)
+        .value,
       email: (e.currentTarget.elements.namedItem("email") as HTMLInputElement)
         .value,
       company: (
         e.currentTarget.elements.namedItem("company") as HTMLInputElement
       ).value,
-      team: team,
+      profession: team,
       rating: rating,
       message: (
         e.currentTarget.elements.namedItem("message") as HTMLTextAreaElement

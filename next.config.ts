@@ -15,19 +15,19 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        source: "/api/(.*)", // Apply to all API routes
+        source: "/api/testimonials", // Apply to all API routes
         headers: [
           {
             key: "Access-Control-Allow-Origin",
-            value: "*", // Change '*' to your frontend URL in production (e.g., "https://yourdomain.com")
+            value: "*",
           },
           {
             key: "Access-Control-Allow-Methods",
-            value: "GET, POST, PUT, DELETE, OPTIONS",
+            value: "GET",
           },
           {
             key: "Access-Control-Allow-Headers",
-            value: "Content-Type, Authorization",
+            value: "Content-Type, secret-key",
           },
           {
             key: "Cross-Origin-Opener-Policy",
