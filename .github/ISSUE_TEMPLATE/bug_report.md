@@ -10,14 +10,6 @@ assignees: ""
 
 <!-- Provide a clear and concise description of the bug. -->
 
-## How To Reproduce
-
-<!-- Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error -->
-
 ## Expected behavior
 
 <!-- Describe what you expected to happen. -->
@@ -25,25 +17,6 @@ assignees: ""
 ## Screenshots
 
 <!-- If applicable, add screenshots to help explain the issue -->
-
-## Environment
-
-### Desktop
-
-- **Operating System:** [e.g., Windows, macOS, Linux]
-- **Browser:** [e.g., Chrome, Safari, Firefox]
-- **Version:** [e.g., v1.0.0]
-
-### Smartphone
-
-- **Device:** [e.g., iPhone 6]
-- **OS:** [e.g., iOS 8.1]
-- **Browser:** [e.g., stock browser, Safari]
-- **Version:** [e.g., v1.0.0]
-
-## Console Errors
-
-<!-- Attach screenshots of console errors if available to provide more context. -->
 
 ## Additional context (if any)
 
