@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { decodeToken } from "../../../../lib/decodeToken";
 import Project from "../../../../models/project.model";
 import { connectToDatabase } from "../../../../lib/mongoose";
+import Testimonial from "../../../../models/testimonial.model";
+import User from "../../../../models/user.model";
 
 export async function GET(
   req: NextRequest,
@@ -85,6 +87,12 @@ export async function DELETE(
     }
     await connectToDatabase();
     // Delete Project from the database
+    await Testimonial.findByIdAndDelete({ projectId: projectId });
+
+    await User.findByIdAndUpdate(userId, {
+      $pull: { projects: projectId },
+    });
+
     const project = await Project.findOneAndDelete({ _id: projectId });
 
     if (!project) {

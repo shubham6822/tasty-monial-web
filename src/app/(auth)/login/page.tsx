@@ -70,6 +70,7 @@ export default function LoginPage() {
       const user = result.user;
 
       if (user) {
+        setIsLoading(true);
         const res = await fetch("/api/auth/login", {
           method: "POST",
           headers: {
@@ -80,7 +81,7 @@ export default function LoginPage() {
             password: "12345678",
           }),
         });
-
+        setIsLoading(false);
         if (res.ok) {
           const response = await res.json();
           setCookie("token", response.data);
