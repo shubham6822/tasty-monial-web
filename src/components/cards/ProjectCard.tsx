@@ -45,7 +45,7 @@ export default function ProjectCard({
 
   return (
     <>
-      <div className="shadow-sm w-full h-28 rounded-xl p-3 px-5 border hover:border-gray-300 dark:border-[#1F1F23] dark:bg-[#0F0F12] bg-white">
+      <div className="shadow-sm w-full h-28 rounded-xl p-3 px-5 border hover:border-gray-300 dark:border-gray-400 dark:bg-[#0F0F12] bg-white">
         <div className="flex h-full justify-between">
           <div className="flex flex-col justify-between ">
             <div>

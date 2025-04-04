@@ -10,11 +10,9 @@ import {
   X,
 } from "lucide-react";
 import Link from "next/link";
-import { Badge } from "./ui/badge";
 import { cn, formatDate } from "../lib/utils";
 import { Button } from "./ui/button";
-import { Testimonial } from "./TestimonialsPage";
-import { useGetTestimonials } from "../hooks/useTestimonialApi";
+import { Testimonial } from "../types/testimonial.type";
 
 interface TestimonialsTableProps {
   testimonials: Testimonial[];
@@ -39,9 +37,9 @@ export default function TestimonialsTable({
             <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
               Rating
             </th>
-            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+            {/* <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
               Status
-            </th>
+            </th> */}
             <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
               Date
             </th>
@@ -51,20 +49,20 @@ export default function TestimonialsTable({
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200 dark:divide-gray-800">
-          {testimonials.length > 0 ? (
-            testimonials.map((testimonial) => {
-              const StatusIcon = statusConfig[testimonial.status].icon;
+          {testimonials?.length > 0 ? (
+            testimonials?.map((testimonial) => {
+              // const StatusIcon = statusConfig[testimonial.status].icon;
 
               return (
                 <tr
-                  key={testimonial.id}
+                  key={testimonial._id}
                   className="hover:bg-gray-50 dark:hover:bg-zinc-800/50"
                 >
                   <td className="px-4 py-4 whitespace-nowrap">
-                    <Link href={`/testimonial/${testimonial.id}`}>
+                    <Link href={`/testimonial/${testimonial._id}`}>
                       <div className="flex flex-col">
                         <span className="text-sm font-medium text-gray-900 dark:text-white">
-                          {testimonial.clientName}
+                          {testimonial.name}
                         </span>
                         {testimonial.company && (
                           <span className="text-xs text-gray-500 dark:text-gray-400">
@@ -94,7 +92,7 @@ export default function TestimonialsTable({
                       ))}
                     </div>
                   </td>
-                  <td className="px-4 py-4 whitespace-nowrap">
+                  {/* <td className="px-4 py-4 whitespace-nowrap">
                     <Badge
                       variant="outline"
                       className={cn(
@@ -105,13 +103,13 @@ export default function TestimonialsTable({
                       <StatusIcon className="h-3 w-3" />
                       <span>{statusConfig[testimonial.status].label}</span>
                     </Badge>
-                  </td>
+                  </td> */}
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
                     {formatDate(testimonial.date)}
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <div className="flex items-center justify-end gap-2">
-                      <Link href={`/testimonial/${testimonial.id}`}>
+                      <Link href={`/testimonial/${testimonial._id}`}>
                         <Button variant="ghost" size="icon" className="h-8 w-8">
                           <Eye className="h-4 w-4" />
                           <span className="sr-only">View</span>
@@ -170,7 +168,7 @@ export default function TestimonialsTable({
         </tbody>
       </table>
 
-      {testimonials.length > 0 && (
+      {testimonials?.length > 0 && (
         <div className="flex items-center justify-between border-t border-gray-200 dark:border-gray-800 px-4 py-3 mt-4">
           <div className="text-sm text-gray-500 dark:text-gray-400">
             Showing <span className="font-medium">{testimonials.length}</span>{" "}

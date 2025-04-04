@@ -1,6 +1,6 @@
 "use client";
 import { Search, Filter, SlidersHorizontal } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "../../../components/ui/input";
 import {
   Select,
@@ -11,27 +11,9 @@ import {
 } from "../../../components/ui/select";
 import TestimonialsTable from "../../../components/TestimonialsTable";
 import DeleteConfirmationModal from "../../../components/modals/DeleteConfirmationModal";
-
-export interface Testimonial {
-  id: string;
-  clientName: string;
-  message: string;
-  date: string;
-  rating: number;
-  email?: string;
-  company?: string;
-  status: "published" | "pending" | "rejected";
-  position?: string;
-  location?: string;
-  avatar?: string;
-  socialMedia?: {
-    twitter?: string;
-    linkedin?: string;
-  };
-  productUsed?: string;
-  usageDuration?: string;
-  additionalComments?: string;
-}
+import { useGetTestimonials } from "../../../hooks/useTestimonialApi";
+import { useProjectContext } from "../../../context/ProjectContext";
+import { Testimonial } from "../../../types/testimonial.type";
 
 // Sample testimonial data
 const INITIAL_TESTIMONIALS: Testimonial[] = [
@@ -211,37 +193,44 @@ const INITIAL_TESTIMONIALS: Testimonial[] = [
 ];
 
 export default function TestimonialsPage() {
-  const [testimonials, setTestimonials] =
-    useState<Testimonial[]>(INITIAL_TESTIMONIALS);
+  const [testimonials, setTestimonials] = useState<Testimonial[]>();
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [ratingFilter, setRatingFilter] = useState<string>("all");
+  const { project } = useProjectContext();
+  const { data } = useGetTestimonials(project.id);
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [currentTestimonial, setCurrentTestimonial] =
     useState<Testimonial | null>(null);
 
-  // Filter testimonials based on search query and filters
-  const filteredTestimonials = testimonials.filter((testimonial) => {
-    const matchesSearch =
-      testimonial.clientName
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase()) ||
-      testimonial.message.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (testimonial.company &&
-        testimonial.company.toLowerCase().includes(searchQuery.toLowerCase()));
+  useEffect(() => {
+    if (data) {
+      setTestimonials(data);
+    } else {
+      setTestimonials(INITIAL_TESTIMONIALS);
+    }
+  }, [data]);
 
-    const matchesStatus =
-      statusFilter === "all" || testimonial.status === statusFilter;
+  // Filter testimonials based on search query and filters
+  const filteredTestimonials = testimonials?.filter((testimonial) => {
+    const matchesSearch =
+      testimonial?.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      testimonial?.message?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (testimonial?.company &&
+        testimonial?.company
+          ?.toLowerCase()
+          .includes(searchQuery.toLowerCase()));
+
     const matchesRating =
       ratingFilter === "all" || testimonial.rating.toString() === ratingFilter;
 
-    return matchesSearch && matchesStatus && matchesRating;
+    return matchesSearch && matchesRating;
   });
 
   // Delete operation
   const handleDeleteTestimonial = (id: string) => {
-    setTestimonials(testimonials.filter((t) => t.id !== id));
+    setTestimonials(testimonials?.filter((t) => t._id !== id));
     setIsDeleteModalOpen(false);
     setCurrentTestimonial(null);
   };
@@ -276,7 +265,7 @@ export default function TestimonialsPage() {
             </div>
             <div className="flex gap-3">
               <div className="w-40">
-                <Select value={statusFilter} onValueChange={setStatusFilter}>
+                {/* <Select value={statusFilter} onValueChange={setStatusFilter}>
                   <SelectTrigger>
                     <SlidersHorizontal className="mr-2 h-4 w-4" />
                     <SelectValue placeholder="Status" />
@@ -287,7 +276,7 @@ export default function TestimonialsPage() {
                     <SelectItem value="pending">Pending</SelectItem>
                     <SelectItem value="rejected">Rejected</SelectItem>
                   </SelectContent>
-                </Select>
+                </Select> */}
               </div>
               <div className="w-40">
                 <Select value={ratingFilter} onValueChange={setRatingFilter}>
