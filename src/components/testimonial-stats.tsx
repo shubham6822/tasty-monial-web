@@ -1,3 +1,5 @@
+import { useProjectContext } from "../context/ProjectContext";
+import { useGetTestimonials } from "../hooks/useTestimonialApi";
 import { cn } from "../lib/utils";
 import { ArrowUpRight, MessageSquare, Share2, Users } from "lucide-react";
 
@@ -10,9 +12,12 @@ export default function TestimonialStats({
   type,
   className,
 }: TestimonialStatsProps) {
+  const { project } = useProjectContext();
+  const { data } = useGetTestimonials(project.id);
+
   const stats = {
     total: {
-      value: "24",
+      value: data?.length || "0",
       label: "Total Testimonials",
       change: "+12%",
       icon: MessageSquare,
@@ -20,7 +25,7 @@ export default function TestimonialStats({
       bgColor: "bg-indigo-100 dark:bg-indigo-900/30",
     },
     submissions: {
-      value: "156",
+      value: data?.length || "0",
       label: "Form Submissions",
       change: "+8%",
       icon: Share2,
@@ -28,9 +33,9 @@ export default function TestimonialStats({
       bgColor: "bg-emerald-100 dark:bg-emerald-900/30",
     },
     team: {
-      value: "3",
+      value: "0",
       label: "Team Members",
-      change: "+1",
+      change: "0",
       icon: Users,
       iconColor: "text-blue-600 dark:text-blue-400",
       bgColor: "bg-blue-100 dark:bg-blue-900/30",
