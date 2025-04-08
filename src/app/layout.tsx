@@ -4,7 +4,9 @@ import { Toaster } from "../components/ui/toaster";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Script from "next/script";
 import QueryProvider from "./QueryProvider";
+import { ReactScan } from "../components/ReactScan";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,7 +33,10 @@ export default function RootLayout({
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://tasty-monial.vercel.app/" />
+        <Script
+          src="https://unpkg.com/react-scan/dist/auto.global.js"
+          strategy="lazyOnload"
+        />
       </head>
       <body className={inter.className}>
         <ThemeProvider
@@ -40,7 +45,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <QueryProvider>{children}</QueryProvider>
+          <QueryProvider>
+            <ReactScan />
+            {children}
+          </QueryProvider>
           <Toaster />
         </ThemeProvider>
       </body>
