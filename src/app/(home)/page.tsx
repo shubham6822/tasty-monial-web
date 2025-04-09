@@ -23,7 +23,7 @@ export default function Home() {
         <KeyFeatures />
         <TestimonialSection />
         <WhyChoose />
-        <PricingSection />
+        {/* <PricingSection /> */}
         <FAQSection />
         <FinalCTASection />
       </main>
