@@ -26,7 +26,6 @@ export default function UserSettingsForm() {
     picture: "",
   });
   const [loading, setLoading] = useState(false);
-  const [imageFile, setImageFile] = useState<File | null>(null);
   const { toast } = useToast();
 
   const fetchUserData = useCallback(() => {
@@ -55,57 +54,27 @@ export default function UserSettingsForm() {
     fetchUserData();
   }, [fetchUserData]);
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setImageFile(file);
-    }
-  };
-
-  const uploadImage = async (file: File): Promise<string> => {
-    const formData = new FormData();
-    formData.append("file", file);
-    // Replace with your image upload API endpoint
-    const response = await fetch("/api/upload", {
-      method: "POST",
-      body: formData,
-    });
-    const data = await response.json();
-    return data.url;
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      let pictureUrl = userData.picture;
-      if (imageFile) {
-        pictureUrl = await uploadImage(imageFile);
-      }
+      const response = await api.put("/api/user/update", userData);
 
-      const response = await fetch("/api/user/update", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...userData,
-          picture: pictureUrl,
-        }),
-      });
-
-      const data = await response.json();
-      if (data.success) {
+      if (response.data.success) {
         toast({
           title: "Success",
           description: "Profile updated successfully",
         });
-        setUserData(data.data);
+
+        // Update localStorage with new user data
+        localStorage.setItem("user", JSON.stringify(response.data.data));
+        setUserData(response.data.data);
       } else {
-        throw new Error(data.error);
+        throw new Error(response.data.error || "Failed to update profile");
       }
     } catch (error) {
+      console.error("Error updating profile:", error);
       toast({
         title: "Error",
         description: "Failed to update profile",
@@ -123,16 +92,9 @@ export default function UserSettingsForm() {
           <AvatarImage src={userData.picture || "/placeholder-user.jpg"} />
           <AvatarFallback>{userData.name?.[0]}</AvatarFallback>
         </Avatar>
-        <div>
-          <Label htmlFor="picture">Profile Picture</Label>
-          <Input
-            id="picture"
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-            className="mt-1"
-          />
-        </div>
+        <p className="text-sm text-muted-foreground">
+          Profile picture update is currently disabled
+        </p>
       </div>
 
       <div className="space-y-2">

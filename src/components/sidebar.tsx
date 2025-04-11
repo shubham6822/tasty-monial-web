@@ -50,7 +50,7 @@ const navigation: NavSection[] = [
     items: [
       { href: "/whats-new", icon: Info, label: "What's new" },
       { href: "/affiliate", icon: Share2, label: "Affiliate Program" },
-      { href: "feedback", icon: MessageCircle, label: "Feedback" },
+      { href: "/feedback", icon: MessageCircle, label: "Feedback" },
       { href: "/community", icon: Users, label: "Community" },
     ],
   },
