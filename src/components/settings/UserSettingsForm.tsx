@@ -59,7 +59,11 @@ export default function UserSettingsForm() {
     setLoading(true);
 
     try {
-      const response = await api.put("/api/user/update", userData);
+      const response = await api.put<{
+        success: boolean;
+        data: UserData;
+        error?: string;
+      }>("/api/user/update", userData);
 
       if (response.data.success) {
         toast({
