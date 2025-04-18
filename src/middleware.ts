@@ -19,7 +19,7 @@ export function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  return NextResponse.next(); // Allow request to proceed
+  return NextResponse.next();
 }
 
 // Apply middleware to all routes except static files
